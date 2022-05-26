@@ -1,0 +1,101 @@
+CREATE TABLE TURNIR(
+Datum_održavanja         date,
+Naziv         varchar(15)
+);
+
+ALTER TABLE TURNIR ADD PRIMARY KEY(Datum_održavanja , Naziv);
+
+CREATE TABLE DISCIPLINA(
+Naziv_discipline         varchar(15),
+Vreme_početka         varchar(15),
+Vreme_kraja         varchar(15),
+Ime         varchar(15),
+Srednje_ime         varchar(15),
+Prezime         varchar(15)
+);
+
+ALTER TABLE DISCIPLINA ADD PRIMARY KEY(Naziv_discipline , Vreme_početka);
+
+CREATE TABLE Lokacija(
+Kapacitet         integer,
+Vrsta_terena         varchar(15),
+Adresa         varchar(15),
+Naziv         varchar(15),
+Naziv_discipline         varchar(15),
+Vreme_početka         varchar(15)
+);
+
+ALTER TABLE Lokacija ADD PRIMARY KEY(Adresa , Naziv);
+
+ALTER TABLE Lokacija ADD CONSTRAINT Naziv_discipline_FK FOREIGN KEY(Naziv_discipline,Vreme_početka) REFERENCES DISCIPLINA(Naziv_discipline,Vreme_početka);
+
+CREATE TABLE Učesnik(
+Ime         varchar(15),
+Srednje_ime         varchar(15),
+Prezime         varchar(15),
+Redni_broj         integer,
+Regija         varchar(15)
+);
+
+ALTER TABLE Učesnik ADD PRIMARY KEY(Redni_broj);
+
+CREATE TABLE Sponzor(
+Naziv         varchar(15),
+Slogan         varchar(15),
+Prioritet         integer
+);
+
+ALTER TABLE Sponzor ADD PRIMARY KEY(Prioritet);
+
+CREATE TABLE Učestvuje(
+Redni_broj         integer,
+Naziv_discipline         varchar(15),
+Vreme_početka         varchar(15)
+);
+
+ALTER TABLE Učestvuje ADD PRIMARY KEY(Redni_broj , Naziv_discipline , Vreme_početka);
+
+ALTER TABLE Učestvuje ADD CONSTRAINT Redni_broj_FK FOREIGN KEY(Redni_broj) REFERENCES Učesnik(Redni_broj);
+
+ALTER TABLE Učestvuje ADD CONSTRAINT Naziv_discipline_FK FOREIGN KEY(Naziv_discipline,Vreme_početka) REFERENCES DISCIPLINA(Naziv_discipline,Vreme_početka);
+
+CREATE TABLE Sponzoriše(
+Datum_održavanja         date,
+Naziv         varchar(15),
+Prioritet         integer
+);
+
+ALTER TABLE Sponzoriše ADD PRIMARY KEY(Datum_održavanja , Naziv , Prioritet);
+
+ALTER TABLE Sponzoriše ADD CONSTRAINT Datum_održavanja_FK FOREIGN KEY(Datum_održavanja,Naziv) REFERENCES TURNIR(Datum_održavanja,Naziv);
+
+ALTER TABLE Sponzoriše ADD CONSTRAINT Prioritet_FK FOREIGN KEY(Prioritet) REFERENCES Sponzor(Prioritet);
+
+CREATE TABLE Organizuje(
+Datum_održavanja         date,
+Naziv         varchar(15),
+Naziv_discipline         varchar(15),
+Vreme_početka         varchar(15)
+);
+
+ALTER TABLE Organizuje ADD PRIMARY KEY(Datum_održavanja , Naziv , Naziv_discipline , Vreme_početka);
+
+ALTER TABLE Organizuje ADD CONSTRAINT Datum_održavanja_FK FOREIGN KEY(Datum_održavanja,Naziv) REFERENCES TURNIR(Datum_održavanja,Naziv);
+
+ALTER TABLE Organizuje ADD CONSTRAINT Naziv_discipline_FK FOREIGN KEY(Naziv_discipline,Vreme_početka) REFERENCES DISCIPLINA(Naziv_discipline,Vreme_početka);
+
+CREATE TABLE Kontakt_telefon(
+Kontakt_telefon         varchar(15),
+Redni_broj         integer
+);
+
+ALTER TABLE Kontakt_telefon ADD PRIMARY KEY(Kontakt_telefon , Redni_broj);
+
+CREATE TABLE Broj_telefona(
+Broj_telefona         varchar(15),
+Adresa         varchar(15),
+Naziv         varchar(15)
+);
+
+ALTER TABLE Broj_telefona ADD PRIMARY KEY(Broj_telefona , Adresa , Naziv);
+

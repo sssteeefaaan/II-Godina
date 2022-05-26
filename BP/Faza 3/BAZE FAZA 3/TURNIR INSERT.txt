@@ -1,0 +1,1 @@
+INSERT INTO TURNIR values ('Elfakijada 2020','12-AUG-2020');

@@ -1,0 +1,114 @@
+Aleksić Stefan - 16995
+IV Faza projektovanja baze podataka : Proste SELECT naredbe.
+
+1. Prikazati koliko dana traje turnir "Elfakijada 2020".
+
+	SELECT Naziv,extract(day from Datum_kraja)-extract(day from Datum_odrzavanja) as Dana
+	FROM TURNIR;
+
+2. Prikazati imena, prezimena i godine starosti svih učesnika koji su u svojoj trećoj deceniji života u rastućem redosledu.
+
+	SELECT Ime,Prezime,extract(year from sysdate)-extract(year from Datum_rodjenja) as Starost
+	FROM UCESNIK
+	WHERE Datum_rodjenja is not null and extract(year from sysdate)-extract(year from Datum_rodjenja) between '21' and '30'
+	ORDER BY Starost ASC;
+
+3. Prikazati sve discipline koje organizuje turnir "Elfakijada 2020".
+
+	SELECT Naziv_discipline
+	FROM ORGANIZUJE
+	WHERE Naziv='Elfakijada 2020';
+
+4. Prikazati sve lokacije, čiji je kapacitet veći od 1999.
+
+	SELECT *
+	FROM LOKACIJA
+	WHERE KAPACITET>='2000';
+
+5. Prikazati sve discipline u kojima sude "Thomas" ili "Djordje".
+
+	SELECT *
+	FROM DISCIPLINA
+	WHERE Ime_sudije IN ('Thomas','Djordje');
+
+6. Prikazati šifre, imena i prezime o učenika koji dolaze iz Sverne Italije, Hrvatske ili Šumadije.
+
+	SELECT Sifra, Ime, Prezime, Regija
+	FROM UCESNIK
+	WHERE Regija IN ('Nothern Italy','Severna Hrvatska','Sumadija');
+
+7. Prikazati naziv i ime sudije za disciplinu za koju se zna vreme kraja.
+
+	SELECT Naziv_discipline,Ime_sudije
+	FROM DISCIPLINA
+	WHERE Vreme_kraja IS NOT NULL;
+
+8. Prikazati sve učesnike kojima je nepoznat datum rođenja.
+
+	SELECT Ime,Srednje_ime,Prezime,Sifra
+	FROM UCESNIK
+	WHERE Datum_rodjenja IS NULL;
+
+9. Prikazati sve članove koji učestvuju na disciplinama čije je vreme početka pre 18:00h u rastućem redosledu po vremenu početka discipline i rednom broju takmičara.
+
+	SELECT *
+	FROM UCESTVUJE
+	WHERE Vreme_pocetka < '18:00h'
+	ORDER BY Vreme_pocetka ASC, Redni_broj ASC;
+
+10. Prikazati sve detalje učesnika koji su rođeni nakon 1999. godine u opadajućem redosledu po godini rođenja.
+
+	SELECT *
+	FROM UCESNIK
+	WHERE extract(year from Datum_rodjenja) > 1999
+	ORDER BY Datum_rodjenja DESC;
+
+11. Prikazati discipline koje se održavaju u rastućem redosledu u periodu 16-19. avgusta 2020. godine (uključujući 16. i 19. avgust).
+
+	SELECT Naziv_discipline, Datum_odrzavanja
+	FROM ODRZAVA_SE
+	WHERE Datum_odrzavanja BETWEEN '16-AUG-2020' AND '19-AUG-2020'
+	ORDER BY Datum_odrzavanja ASC;
+
+12. Prikazati puno ime ucesnika sa šifrom koja počinje sa "RS", odnosno, koji je iz Republike Srbije.
+
+	SELECT IME,SREDNJE_IME,PREZIME
+	FROM UCESNIK
+	WHERE Sifra like 'RS%';
+
+13. Prikazati brojeve telefona svih lokacija u Londonu.
+
+	SELECT *
+	FROM BROJ_TELEFONA
+	WHERE ADRESA LIKE '%London';
+
+14. Prikazati naziv i vreme početka discipline koja se održava na lokaciji čiji naziv počinje sa "Empire".
+
+	SELECT Naziv_discipline,Vreme_pocetka
+	FROM ODRZAVA_SE
+	WHERE Naziv LIKE 'Empire%';
+
+15. Prikazati šifru takmičara i naziv discipline za sve discipline koje počinju između 08:00 i 16:00h.
+
+	SELECT Sifra,Naziv_discipline
+	FROM UCESTVUJE
+	WHERE vreme_pocetka between '08:00h' and '16:00h';
+
+16. Prikazati imena i prezimena učesnika čije prezime počinje slovom A, odnosno ime slovom M.
+
+	SELECT Ime,Prezime
+	FROM UCESNIK
+	WHERE prezime like 'A%' or ime like 'M%';
+
+17. Prikazati redne brojeve i šifre takmičara u Kijakaštvu, koji nastupaju nakon takmičara sa rednim brojem 2 u rastućem redosledu.
+
+	SELECT Redni_broj, Sifra
+	FROM UCESTVUJE
+	WHERE Naziv_discipline= 'Kajakastvo' AND Redni_broj>'2'
+	ORDER BY Redni_broj ASC;
+
+18. Prikazati naziv discipline kao i naziv i adresu lokacije na kojoj se data disciplina održava od 08:00h ili od 18:00h.
+
+	SELECT Naziv_discipline,Naziv,Adresa
+	FROM ODRZAVA_SE
+	WHERE Vreme_pocetka = '08:00h' or Vreme_pocetka = '18:00h';

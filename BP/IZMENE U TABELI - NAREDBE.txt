@@ -1,0 +1,14 @@
+drop table Broj_telefona;
+drop table Kontakt_telefon;
+drop table Sponzorise;
+drop table Ucestvuje;
+drop table Odrzava_se;
+drop table Organizuje;
+drop table TURNIR;
+drop table DISCIPLINA;
+drop table LOKACIJA;
+drop table SPONZOR;
+drop table UCESNIK;
+
+DELETE FROM SPONZOR WHERE Prioritet='3';
+UPDATE UCESNIK SET IME='Stefan' WHERE IME='Predrag';

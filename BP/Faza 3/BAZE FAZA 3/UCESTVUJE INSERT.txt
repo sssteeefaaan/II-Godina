@@ -1,0 +1,30 @@
+INSERT INTO Ucestvuje values ('RS001','Alpsko skijanje','08:00h',1);
+INSERT INTO Ucestvuje values ('RS002','Alpsko skijanje','08:00h',2);
+INSERT INTO Ucestvuje values ('USA003','Alpsko skijanje','08:00h',3);
+INSERT INTO Ucestvuje values ('IT001','Alpsko skijanje','08:00h',4);
+INSERT INTO Ucestvuje values ('MS001','Alpsko skijanje','08:00h',5);
+
+INSERT INTO Ucestvuje values ('RS003','Plivanje 100m','15:15h',1);
+INSERT INTO Ucestvuje values ('RS004','Plivanje 100m','15:15h',2);
+INSERT INTO Ucestvuje values ('SP001','Plivanje 100m','15:15h',3);
+INSERT INTO Ucestvuje values ('SP002','Plivanje 100m','15:15h',4);
+INSERT INTO Ucestvuje values ('USA001','Plivanje 100m','15:15h',5);
+
+INSERT INTO Ucestvuje values ('USA002','Dresurno jahanje','18:00h',1);
+INSERT INTO Ucestvuje values ('RS005','Dresurno jahanje','18:00h',2);
+INSERT INTO Ucestvuje values ('RS006','Dresurno jahanje','18:00h',3);
+INSERT INTO Ucestvuje values ('NW001','Dresurno jahanje','18:00h',4);
+INSERT INTO Ucestvuje values ('NK001','Dresurno jahanje','18:00h',5);
+
+INSERT INTO Ucestvuje values('RS010','Mixed Martial Arts','16:45h',1);
+INSERT INTO Ucestvuje values('RS007','Mixed Martial Arts','16:45h',2);
+INSERT INTO Ucestvuje values('RC001','Mixed Martial Arts','16:45h',3);
+INSERT INTO Ucestvuje values('SP003','Mixed Martial Arts','16:45h',4);
+INSERT INTO Ucestvuje values('SP004','Mixed Martial Arts','16:45h',5);
+
+INSERT INTO Ucestvuje values('RS008','Diving 10m','12:00h',1);
+INSERT INTO Ucestvuje values('RS009','Diving 10m','12:00h',2);
+INSERT INTO Ucestvuje values('SP005','Diving 10m','12:00h',3);
+INSERT INTO Ucestvuje values('RS011','Diving 10m','12:00h',4);
+INSERT INTO Ucestvuje values('SP006','Diving 10m','12:00h',5);
+INSERT INTO Ucestvuje values('IT001','Diving 10m','12:00h',6);

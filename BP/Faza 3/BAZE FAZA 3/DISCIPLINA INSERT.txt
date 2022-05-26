@@ -1,0 +1,5 @@
+INSERT INTO DISCIPLINA values ('Alpsko skijanje','08:00h','12:00h','Djordje','Goran','Jovanovic');
+INSERT INTO DISCIPLINA values ('Plivanje 100m','15:15h','19:30h','Michael','Fred','Phelps II');
+INSERT INTO DISCIPLINA values('Dresurno jahanje','18:00h','21:30h','Magdalena','Petar','Marjanovic');
+INSERT INTO DISCIPLINA values('Mixed Martial Arts','16:45h','21:00h','Predrag','Jelen','Kocic');
+INSERT INTO DISCIPLINA values ('Diving 10m','12:00h','16:00h','Thomas','Robert','Daley');

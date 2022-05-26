@@ -1,0 +1,7 @@
+1. Površina trougla - Prenos argumenata po vrednosti 
+
+2. Konverzija u polarne koordinate - Prenos argumenata po referenci i pokazivaču 
+
+3. Uređenje niza metodom izbora - Dinamički niz, zauzimanje i oslobađanje memorije 
+
+4. Uređenje niza metodom Quicksort - Rekurzija, kod u više fajlova

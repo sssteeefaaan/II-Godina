@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="792f127e-77a1-4b8c-8ab4-0cc72d9710aa" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1a2xqLY53goRXXAzYjadRmcj8q1" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="zad2.Main" />
+      <module name="PripremaZaKolokvijum2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="zad2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="792f127e-77a1-4b8c-8ab4-0cc72d9710aa" name="Default Changelist" comment="" />
+      <created>1585947679078</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1585947679078</updated>
+      <workItem from="1585947682606" duration="7490000" />
+      <workItem from="1585955676704" duration="101000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="553" y="242" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1585953628060">
+      <screen x="62" y="0" width="1474" height="864" />
+    </state>
+    <state x="553" y="242" key="#com.intellij.fileTypes.FileTypeChooser/62.0.1474.864@62.0.1474.864" timestamp="1585953628060" />
+    <state x="236" y="141" key="#com.intellij.ide.util.MemberChooser" timestamp="1585950409383">
+      <screen x="62" y="0" width="1474" height="864" />
+    </state>
+    <state x="236" y="141" key="#com.intellij.ide.util.MemberChooser/62.0.1474.864@62.0.1474.864" timestamp="1585950409383" />
+    <state x="580" y="190" key="FileChooserDialogImpl" timestamp="1585955179036">
+      <screen x="62" y="0" width="1474" height="864" />
+    </state>
+    <state x="580" y="190" key="FileChooserDialogImpl/62.0.1474.864@62.0.1474.864" timestamp="1585955179036" />
+    <state width="1431" height="277" key="GridCell.Tab.0.bottom" timestamp="1585955180502">
+      <screen x="62" y="0" width="1474" height="864" />
+    </state>
+    <state width="1431" height="277" key="GridCell.Tab.0.bottom/62.0.1474.864@62.0.1474.864" timestamp="1585955180502" />
+    <state width="1431" height="277" key="GridCell.Tab.0.center" timestamp="1585955180502">
+      <screen x="62" y="0" width="1474" height="864" />
+    </state>
+    <state width="1431" height="277" key="GridCell.Tab.0.center/62.0.1474.864@62.0.1474.864" timestamp="1585955180502" />
+    <state width="1431" height="277" key="GridCell.Tab.0.left" timestamp="1585955180502">
+      <screen x="62" y="0" width="1474" height="864" />
+    </state>
+    <state width="1431" height="277" key="GridCell.Tab.0.left/62.0.1474.864@62.0.1474.864" timestamp="1585955180502" />
+    <state width="1431" height="277" key="GridCell.Tab.0.right" timestamp="1585955180502">
+      <screen x="62" y="0" width="1474" height="864" />
+    </state>
+    <state width="1431" height="277" key="GridCell.Tab.0.right/62.0.1474.864@62.0.1474.864" timestamp="1585955180502" />
+    <state width="1431" height="277" key="GridCell.Tab.1.bottom" timestamp="1585955180502">
+      <screen x="62" y="0" width="1474" height="864" />
+    </state>
+    <state width="1431" height="277" key="GridCell.Tab.1.bottom/62.0.1474.864@62.0.1474.864" timestamp="1585955180502" />
+    <state width="1431" height="277" key="GridCell.Tab.1.center" timestamp="1585955180502">
+      <screen x="62" y="0" width="1474" height="864" />
+    </state>
+    <state width="1431" height="277" key="GridCell.Tab.1.center/62.0.1474.864@62.0.1474.864" timestamp="1585955180502" />
+    <state width="1431" height="277" key="GridCell.Tab.1.left" timestamp="1585955180502">
+      <screen x="62" y="0" width="1474" height="864" />
+    </state>
+    <state width="1431" height="277" key="GridCell.Tab.1.left/62.0.1474.864@62.0.1474.864" timestamp="1585955180502" />
+    <state width="1431" height="277" key="GridCell.Tab.1.right" timestamp="1585955180502">
+      <screen x="62" y="0" width="1474" height="864" />
+    </state>
+    <state width="1431" height="277" key="GridCell.Tab.1.right/62.0.1474.864@62.0.1474.864" timestamp="1585955180502" />
+    <state x="529" y="333" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1585950004249">
+      <screen x="62" y="0" width="1474" height="864" />
+    </state>
+    <state x="529" y="333" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/62.0.1474.864@62.0.1474.864" timestamp="1585950004249" />
+    <state x="504" y="66" width="590" height="732" key="find.popup" timestamp="1585953915505">
+      <screen x="62" y="0" width="1474" height="864" />
+    </state>
+    <state x="504" y="66" width="590" height="732" key="find.popup/62.0.1474.864@62.0.1474.864" timestamp="1585953915505" />
+    <state x="94" y="181" width="672" height="678" key="search.everywhere.popup" timestamp="1585951147825">
+      <screen x="62" y="0" width="1474" height="864" />
+    </state>
+    <state x="94" y="181" width="672" height="678" key="search.everywhere.popup/62.0.1474.864@62.0.1474.864" timestamp="1585951147825" />
+  </component>
+</project>

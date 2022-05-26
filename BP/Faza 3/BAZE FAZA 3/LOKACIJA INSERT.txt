@@ -1,0 +1,4 @@
+INSERT INTO LOKACIJA values ('Chamonix','74400, France','Ski staza','1550');
+INSERT INTO LOKACIJA values ('Bazen Banjica','19350 Knjazevac','Bazen','200');
+INSERT INTO LOKACIJA values ('Empire Stadium','Wembley, London','Stadion','82000');
+INSERT INTO LOKACIJA values ('Olimpico del Nuoto','Foro Italico, Rome, Italy','Vodeni sportovi','20000');

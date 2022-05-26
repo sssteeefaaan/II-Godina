@@ -1,0 +1,3 @@
+INSERT INTO SPONZOR values ('1','Corega krema','Da Vam vilica ostane na mestu, cak i uz najneverovatnije sportove!');
+INSERT INTO SPONZOR values ('2','Chipsy','Jer jesti nije greh, vec privilegija.');
+INSERT INTO SPONZOR values ('3','Head and Shoulders','Za one koje nije strah prljanja!');

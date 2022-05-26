@@ -1,0 +1,349 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{fancyhdr}
+\usepackage{times}
+\usepackage{gauss}
+\usepackage{tabto}
+\usepackage{amssymb}
+\usepackage{xfrac}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
+ \usepackage[usenames,dvipsnames]{xcolor}
+ \definecolor{violet}{rgb}{0.5, 0.0, 1.0}
+ \usepackage{hyperref}
+ \hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=violet,
+}
+\newcommand{\doublerule}[1][.4pt]{%
+  \noindent
+  \makebox[0pt][l]{\rule[.7ex]{\linewidth}{#1}}%
+  \rule[.3ex]{\linewidth}{#1}}
+ \newcommand{\bigzero}{\mbox{\normalfont\Large\bfseries 0}}
+\newcommand{\rvline}{\hspace*{-\arraycolsep}\vline\hspace*{-\arraycolsep}}
+  \linespread{1.2}
+\begin{document}
+\begin{titlepage}
+\begin {center}
+\huge {Univerzitet u Nišu\\Elektronski fakultet
+\vspace{7.5cm}
+\\
+\doublerule
+\\
+\vspace{1cm}
+\textbf {\Huge{{Matrični metodi u računarstvu \\ \textit{Korigovan} Projekat 1}}}
+\vspace{1cm}
+\\
+\doublerule
+\\
+\vspace{7.5cm}
+\textit{{Stefan Aleksić 16995}\\\Large{02. April, 2020. god.}}}
+\end{center}
+\end{titlepage}
+\newpage
+\section*{Projekat br. 1}
+Poznata je $LU$ dekompozicija regularne matrice $A=LU \in \mathcal {M}_{n\times n}$. Regularna matrica $M$ ima block formu:\\
+\begin{equation*}
+M=
+\begin{bmatrix}
+A & v \\ u^T & a
+\end{bmatrix},
+\end{equation*}
+\\gde su $v, u\in \mathbb{R}^n $ vektori i $ a \in \mathbb{R} $ nenula skalar. Odrediti LU faktorizaciju matrice M u blok formi\\
+\begin{equation*}\tag{1}\label{eq1}
+M=
+\begin{bmatrix}
+\ L\  & \_\_\ \\ \_\_ & \_\_\ 
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+\ U\  & \_\_\ \\ \_\_ & \_\_\ 
+\end{bmatrix},\quad (A=LU)
+\end{equation*}
+i odrediti potreban broj aritmetičkih operacija za njeno dobijanje. U izrazu \eqref{eq1} pozicije \_\_ označavaju vektore i skalare koje je potrebno odrediti tako da matrica
+$ 
+\begin{bmatrix}
+\ L\  & \_\_\ \\ \_\_ & \_\_\ 
+\end{bmatrix}
+$
+bude donje trougaona, matrica
+$
+\begin{bmatrix}
+\ U\  & \_\_\ \\ \_\_ & \_\_\ 
+\end{bmatrix}
+$
+bude donje trougaona i važi jednakost \eqref{eq1}.\\
+Kako se menja broj potrebnih aritmetičkih operacija u slučaju kada su $A$ i $M$ simetrične matrice?
+\subsection*{Rešenje:}
+Da bismo dobili $LU$ faktorizaciju matrice $M$, koristimo sledeći postupak:
+\begin{equation*}
+M=
+\begin{gmatrix}[b]
+A & v\\
+u^T & a
+\rowops
+\add[(-u^TA^{-1})\cdot]{0}{1}
+\end{gmatrix}
+\to
+L^{'}=
+\begin{bmatrix}
+I_{n\times n}\\ u^TA^{-1}
+\end{bmatrix},
+\begin{bmatrix}
+A & v \\ u^T-u^TA^{-1}A & a-u^TA^{-1}v
+\end{bmatrix}
+\end{equation*}
+Element $a-u^TA^{-1}v \in \mathbb{R}$ nazivamo Šurovim komplementom i označavamo: $M/A=a-u^TA^{-1}v$.\\
+LU faktoriracija matrice $M$ sada izgleda:
+\begin{equation*}\tag{2}\label{eq2}
+L^{'}=
+\begin{bmatrix}
+I_{n \times n} & \overrightarrow{0} \\ u^TA^{-1} & 1
+\end{bmatrix},
+\quad
+U^{'}=
+\begin{bmatrix}
+A & v \\ \overrightarrow{0} & M/A
+\end{bmatrix}
+\end{equation*}
+Međutim, dobijene matrice $L'$ i $U'$ ne odgovaraju onim koje se traže (iako $A=IA$, ali ova faktorizacija je trivijalna). Zato moramo pokušati da na neki drugi način dođemo do tražene faktorizacije. Eventualno da nađemo vezu između klasične $LU$ i gore tražene faktorizacije.
+\subsection*{1° Način:}
+Prvo ćemo označiti elemente blok matrica $L_M$ i $U_M$.
+\begin{equation*}
+M=L_MU_M=
+\begin{bmatrix}
+L & \overrightarrow{l_{12}} \\ \overrightarrow{l_{21}}^T & l_a
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+U& \overrightarrow{u_{12}} \\ \overrightarrow{u_{21}}^T & u_a
+\end{bmatrix},\quad
+\overrightarrow{l_{12}}, \overrightarrow{l_{21}}, \overrightarrow{u_{12}}, \overrightarrow{u_{21}} \in \mathbb{R}^{n},\quad l_a, u_a \in \mathbb{R}
+\end{equation*}
+S obzirom da su matrice $L_M,U_M$ donje i gornja trogaona respektivno, odavde možemo da zaključimo da je $\overrightarrow{l_{12}}= \overrightarrow{u_{21}}=\overrightarrow{0}$. Hajmo sada da pomnožimo matrice $L_M$ i $U_M$:
+\begin{equation*}
+L_MU_M=
+\begin{bmatrix}
+L & \overrightarrow{0} \\ \overrightarrow{l_{21}}^T & l_a
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+U& \overrightarrow{u_{12}} \\ \overrightarrow{0}^T & u_a
+\end{bmatrix}
+=
+\begin{bmatrix}
+LU  & L\overrightarrow{u_{12}} \\
+\overrightarrow{l_{21}}^TU & \overrightarrow{l_{21}}^T\overrightarrow{u_{12}} + l_au_a
+\end{bmatrix}
+=
+\begin{bmatrix}
+A & \overrightarrow{v} \\ \overrightarrow{u}^T & a
+\end{bmatrix}
+=M
+\end{equation*}
+Izjednačavanjem leve i desne matrice dobijamo sistem:
+\begin{equation*}\tag{3}\label{eq3}
+\iff 
+\begin{cases}
+LU=A\\
+L\overrightarrow{u_{12}} = v \implies \overrightarrow{u_{12}}=L^{-1}v \\
+\overrightarrow{l_{21}}^TU = u^T \implies \overrightarrow{l_{21}}^T=u^TU^{-1}\\
+\overrightarrow{l_{21}}^T\overrightarrow{u_{12}} + l_au_a=a \implies u^T(U^{-1}L^{-1})v + l_au_a=u^T(LU)^{-1}v + l_au_a=u^TA^{-1}v + l_au_a=a
+\end{cases}
+\hspace{5cm}
+\end{equation*}
+Iako smo gornjim sistemom opisali skup matrica $(l_a,u_a \in \mathbb{R})$, mi možemo na svoju ruku izabrati ono rešenje koje je pogodno za računicu, odnosno ono koje bi bilo najzgodnije po konvenciji. S obzirom da se na glavnoj dijagonali matrice $L_m$ očekuju jedinice, odnosno
+\begin{equation*} det(L_m)=det(L)det(l_a)=1 \implies l_a=1 \land u_a=a-u^TA^{-1}v=M/A
+\end{equation*}
+Odavde konačno dobijamo elemente matrica $L_M$ i $U_M$:
+\begin{equation*}\tag{4}\label{eq4}
+L_M=
+\begin{bmatrix}
+L & \overrightarrow{0}\ \\
+u^TU^{-1} & 1
+\end{bmatrix}, \quad
+U_M=
+\begin{bmatrix}
+U & L^{-1}v\\
+\overrightarrow{0} & M/A
+\end{bmatrix}
+\end{equation*}
+Aritmetičke operacije:
+\begin{center}
+\begin{tabular}{ |l || c | c | c || c | }\hline
+ Oznaka operacije & Sabiranje/Oduzimanje & Množenje & Deljenje & \textbf{Ukupno} \\ \hline \hline
+ $ \overrightarrow{l_{21}}^TU=u^T $ & $ \frac{\displaystyle{n(n-1)}}{\displaystyle{2}} $ &  $ \frac{\displaystyle{n(n-1)}}{\displaystyle{2}}  $ & $ n $ & $ \boldsymbol{\mathcal{O}n ^2} $\\ \hline
+ $ L\overrightarrow{u_{12}}=v $ & $ \frac{\displaystyle{n(n-1)}}{\displaystyle{2}} $ & $ \frac{\displaystyle{n(n-1)}}{\displaystyle{2}} $ & $ 0 $ & $ \boldsymbol{\mathcal{O}n^2} $ \\ \hline
+ $ M/A=a-\overrightarrow{l_{21}}^T\overrightarrow{u_{12}} $ & $ n $ & $ n $ & $ 0 $ & $ \boldsymbol{\mathcal{O}n} $ \\ \hline \hline
+ Ceo algoritam & $ n^2 $ & $ n^2 $ & $ n $ & $ \boldsymbol{\mathcal{O} n^2} $ \\ \hline
+\end{tabular}
+\end{center}
+\subsubsection*{Napomene:} *Izraze: $u^TU^{-1} $ i $L^{-1}v$ izjednačavamo vektorima $\overrightarrow{l_{21}}^T$ i $\overrightarrow{u_{12}} $ respektivno, a onda izraze računamo kao sisteme jednačina:$$\overrightarrow{l_{21}}^TU=u^T \quad \text{i} \quad L\overrightarrow{u_{12}}=v$$
+*S obzirom da matrica $L$ na glavnoj dijagonali ima jedinice, za sistem $L\overrightarrow{u_{12}}=v$ nije potrebno deljenje.\\
+*Šurov komplement $M/A$ odavde je: $$M/A=a-u^TA^{-1}v=a-u^T(LU)^{-1}v=a-(u^TU^{-1})(L^{-1}v)=a-\overrightarrow{l_{21}}^T\overrightarrow{u_{12}}$$
+ *Sve što smo jednom izračunali smatramo pribeleženim, kako se ne bi nagomilavala računanja.\vspace{5mm}\\
+Ukoliko je matrica $M$, onda važi:
+$$ M^T=M \implies
+M^T
+=
+\begin{bmatrix}
+A & v \\ u^T & a
+\end{bmatrix}^T
+=
+\begin{bmatrix}
+A^T & (u^T)^T \\ v^T & a
+\end{bmatrix}
+=
+\begin{bmatrix}
+A^T & u \\ v^T & a
+\end{bmatrix}
+=
+\begin{bmatrix}
+A & v \\ u^T & a
+\end{bmatrix}
+=
+M$$
+\begin{equation*}\tag{5}\label{eq5}
+\iff 
+\begin{cases}
+A=A^T \\
+u=v \\
+v^T = u^T \\
+a=a
+\end{cases}
+\implies 
+\begin{cases}
+A=A^T \\
+v=u
+\end{cases}\vspace{3mm}
+\end{equation*}
+Za simetričnu matricu $A$ važi:\\
+\begin{equation*}\tag{5.1}\label{eq5.1}
+A^T=A \implies (LDU')^T=(DU')^TL^T=U'^TD^TL^T=U'^T D L^T=LDU'
+$$$$
+\implies L^T=U' \iff L=U'^T
+\end{equation*}
+\newpage
+Na osnovu  \eqref{eq3}, \eqref{eq5} i \eqref{eq5.1}:
+$$L\overrightarrow{u_{12}}=v=u=U^T\overrightarrow{l_{21}} \implies L\overrightarrow{u_{12}}=(DU')^T\overrightarrow{l_{21}}=U'^TD\overrightarrow{l_{21}}\implies \overrightarrow{u_{12}}=L^{-1}LD\overrightarrow{l_{21}}\implies \overrightarrow{u_{12}}=D\overrightarrow{l_{21}}$$
+S obzirom da je matrica $D$ dijagonalna matrica, čiji su elementi jednaki elementima glavne dijagonale matrice $U$, za njeno dobijanje nije potrebno nikakvo računanje, dok je za izraz $\overrightarrow{u_{12}}=D\overrightarrow{l_{21}}$ potrebno izvršiti samo $n$ množenja ( $u_{12_i}=d_{ii} \cdot l_{21_i}$  ,  ($ u_{12_i}\in \overrightarrow{u_{12}}$, $d_{ii} \in D_{n \times n}$, $ l_{21_i} \in \overrightarrow{l_{21}}$ $ \forall i=1,n$ )).\vspace{5mm}\\
+Aritmetičke operacije za simetričnu matricu $M$:
+\begin{center}
+\begin{tabular}{ |l || c | c | c || c | }\hline
+ Oznaka operacije & Sabiranje/Oduzimanje & Množenje & Deljenje & \textbf{Ukupno} \\ \hline \hline
+$ \overrightarrow{l_{21}}^TU=u^T $ & $ \frac{\displaystyle{n(n-1)}}{\displaystyle{2}} $ &  $ \frac{\displaystyle{n(n-1)}}{\displaystyle{2}}  $ & $ n $ & $ \boldsymbol{\mathcal{O}n ^2} $\\ \hline
+ $ \overrightarrow{u_{12}}=D\overrightarrow{l_{21}} $ & $ 0 $ & $ n $ & $ 0 $ & $ \boldsymbol{\mathcal{O}n^2} $ \\ \hline
+ $ M/A=a-\overrightarrow{l_{21}}^T\overrightarrow{u_{12}} $ & $ n $ & $ n $ & $ 0 $ & $ \boldsymbol{\mathcal{O}n} $ \\ \hline \hline
+ Ceo algoritam & $ \frac{\displaystyle{n(n+1)}}{\displaystyle{2}} $ & $ \frac{\displaystyle{n(n+3)}}{\displaystyle{2}} $ & $ n $ & $ \boldsymbol{\mathcal{O} \frac{\displaystyle{n^2}}{\displaystyle{2}}} $ \\ \hline
+\end{tabular}
+\end{center}
+\subsection*{2° Način:}
+Primetimo da je prelazak sa $L'U'$ na $L_MU_M$ faktorizaciju vrlo jednostavan.\\
+Na osnovu već odrađene $L'U'$ faktorizacije \eqref{eq2} i izraza:
+\begin{equation*}\tag{6}\label{eq6}
+A^{-1}=(LU)^{-1}=U^{-1}L^{-1} \implies A^{-1}L=U^{-1}L^{-1}L=U^{-1}
+\end{equation*}
+\begin{equation*}\tag{7}\label{eq7}A=LU \implies L^{-1}A=L^{-1}LU=U\vspace{3mm}
+\end{equation*}
+\begin{equation*}\tag{8}\label{eq8}
+I_L=
+\begin{bmatrix}
+L & \overrightarrow{0} \ \\ \overrightarrow{0}^T & 1
+\end{bmatrix}, \quad
+I_{L^{-1}}=
+\begin{bmatrix}
+L ^{-1}& \overrightarrow{0} \ \\ \overrightarrow{0}^T & 1
+\end{bmatrix}, \quad I_LI_{L^{-1}}=I_{(n+1) \times (n+1)}
+\end{equation*}
+Dobijamo:
+\begin{equation*}\tag{9}\label{eq9}
+M=L'U'=L'IU'=(L'I_L)(I_{L^{-1}}U')=L_MU_M
+\end{equation*}
+Odnosno u matričnom zapisu:
+\begin{equation*}
+\begin{bmatrix}
+A & v \\ u^T & a
+\end{bmatrix}
+=
+\begin{bmatrix}
+I_{n \times n} & \overrightarrow{0} \ \\ u^TA^{-1} & 1
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+\ I_{n \times n} & \overrightarrow{0}\\
+\overrightarrow{0}^T & 1
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+A & v \\ \overrightarrow{0} & M/A
+\end{bmatrix}
+=
+\begin{bmatrix}
+I_{n \times n} & \overrightarrow{0} \ \\ u^TA^{-1} & 1
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+\ LL^{-1} & \overrightarrow{0}\\
+\overrightarrow{0}^T & 1
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+A & v \\ \overrightarrow{0} & M/A
+\end{bmatrix}
+=\vspace{3mm}
+\end{equation*}
+\begin{equation*}
+=
+\left(
+\begin{bmatrix}
+I_{n \times n} & \overrightarrow{0}\ \\ u^TA^{-1} & 1
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+\ L & \overrightarrow{0}\\
+\overrightarrow{0}^T & 1
+\end{bmatrix}
+\right)
+\cdot
+\left(
+\begin{bmatrix}
+\ L^{-1} & \overrightarrow{0}\\
+\overrightarrow{0}^T & 1
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+A & v \\ \overrightarrow{0} & M/A
+\end{bmatrix}
+\right)
+=
+\begin{bmatrix}
+L & \overrightarrow{0} \ \\ u^TA^{-1}L & 1
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+L^{-1}A & L^{-1}v \\ \overrightarrow{0} & M/A
+\end{bmatrix}
+=\vspace{3mm}
+\end{equation*}
+\begin{equation*}
+=
+\begin{bmatrix}
+L & \overrightarrow{0} \ \\ u^TU^{-1} & 1
+\end{bmatrix}
+\cdot
+\begin{bmatrix}
+U & L^{-1}v \ \\ \overrightarrow{0} & M/A
+\end{bmatrix}
+\vspace{3mm}
+\end{equation*}
+Na osnovu urađene $L'U'$ faktorizacije \eqref{eq2} i izraza \eqref{eq9} vrlo lako možemo preći sa klasične $LU$ faktorizacije na onu poput gore tražene u zadatku.
+\end{document}

@@ -1,0 +1,104 @@
+Aleksić Stefan - 16995
+Baze podataka - Šesta faza projektovanja baze podataka
+
+-- 1. Zadatak
+-- Ispraviti grešku pri unošenju discipline na kojoj učestvuje takmičar sa šifrom 'RS009'.
+-- Naime, on bi trebalo da učestvuje na disciplini sa vremenom početka u 16:45h.
+-- Voditi računa i o rednom broju takmičara!
+
+        UPDATE UCESTVUJE
+        SET Naziv_discipline=
+        (
+        SELECT Naziv_discipline
+        FROM DISCIPLINA
+        WHERE Vreme_pocetka='16:45h'
+        ),
+        Vreme_pocetka='16:45h',
+        Redni_broj=
+        (
+        SELECT Count(*)
+        FROM UCESTVUJE
+        WHERE Vreme_pocetka='16:45h'
+        GROUP BY(Naziv_discipline)
+        ) + 1
+        WHERE Sifra='RS009';
+
+-- 2. Zadatak
+-- Došlo je do promene lokacije na kojoj se održava disciplina "MMA".
+-- Izmeniti da se ova disciplina održava na lokaciji "Michigan Stadium", koji btw, nije unet u tabeli.
+
+        INSERT INTO LOKACIJA
+        VALUES('Michigan Stadium','1201 S Main St, Ann Arbor, USA','Stadion','107601');
+        
+        UPDATE ODRZAVA_SE
+        SET Naziv=
+        (
+        SELECT Naziv
+        FROM LOKACIJA
+        WHERE Kapacitet='107601'
+        ),
+        Adresa=
+        (
+        SELECT Adresa
+        FROM LOKACIJA
+        WHERE Kapacitet='107601'
+        )
+        WHERE Naziv_discipline='Mixed Martial Arts';
+        
+-- 3. Zadatak
+-- Dobijeno je obaveštenje da je broj telefona koji se završava ciframa ...875
+-- isključen za lokaciju na kojoj se održava disciplina skoka motkom.
+-- Potrebno je izbaciti taj broj telefona iz baze.
+
+        DELETE FROM BROJ_TELEFONA
+        WHERE Broj_telefona LIKE '%875'
+        AND Naziv = (
+                        SELECT Naziv
+                        FROM ODRZAVA_SE
+                        WHERE Naziv_discipline = 'Skok motkom'
+                        )
+        AND Adresa = (
+                        SELECT Adresa
+                        FROM ODRZAVA_SE
+                        WHERE Naziv_discipline = 'Skok motkom'
+                        );
+
+-- 4. Zadatak
+-- Učesnik Kim Jong Un je bio diskvalifikovan zvog neprimernog ponašanja.
+-- Potrebno je ukloniti ga sa svih disciplina!
+
+        DELETE FROM UCESTVUJE
+        WHERE SIFRA = (SELECT Sifra FROM UCESNIK WHERE Ime = 'Kim' AND Srednje_ime = 'Jong' AND Prezime = 'Un');
+
+-- 5. Zadatak
+-- Potrebno je napraviti pregled svih učesnika koji planiraju da učestvuju na više od jedne discipline,
+-- kao i broj disciplina na kojima su prijavljeni.
+
+        CREATE VIEW OVERACHIEVERS
+        AS SELECT Uk.Prezime,Uk.Ime,Count(*) Broj_disciplina
+        FROM UCESNIK UK INNER JOIN UCESTVUJE U
+        ON UK.Sifra=U.Sifra
+        GROUP BY(UK.Ime,UK.Prezime)
+        HAVING COUNT(*)>1
+        ORDER BY Broj_disciplina DESC,UK.Prezime ASC;
+    
+-- 6. Zadatak
+-- Potrebno je napraviti pregled informacija o svim lokacijama koje mogu da prime više od 50.000 ljudi.
+
+        CREATE VIEW STADIONCINE
+        AS SELECT L.Naziv,L.Adresa,O.Naziv_discipline,L.Kapacitet
+        FROM ODRZAVA_SE O, LOKACIJA L,ORGANIZUJE OG
+        WHERE L.Naziv=O.Naziv AND L.Adresa=O.Adresa AND OG.Naziv_discipline=O.Naziv_discipline AND OG.Naziv LIKE 'Elfakijada%'
+        GROUP BY O.Naziv_discipline,L.Naziv,L.Adresa,L.Kapacitet
+        HAVING L.Kapacitet > '50000' 
+        ORDER BY L.Kapacitet DESC,L.Naziv ASC;
+
+-- 7. Zadatak
+-- Napraviti indeks Ucesnik_info koji će sadržati puno ime učesnika.
+
+        CREATE INDEX Ucesnik_info ON UCESNIK(Ime ASC, Srednje_ime ASC, Prezime ASC);
+
+-- 8. Zadatak
+-- Napraviti indeks Disciplina_info koji će sadržati naziv discipline i vreme početka i kraja.
+
+        CREATE  INDEX Disciplina_info ON DISCIPLINA(Naziv_discipline ASC,Vreme_pocetka ASC, Vreme_kraja ASC);

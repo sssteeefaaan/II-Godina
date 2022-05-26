@@ -1,0 +1,85 @@
+SELECT MAX(BROJ) FROM FILM;
+
+--1.	Napisati SQL naredbu koja u bazu podataka VIDEO KLUB dodaje podatke o novom filmu: BROJ: 130, NASLOV:Promise me this,  TIP: comedy, GODINA: 2007, REZISER: 21, BROJ DISKOVA: 4.
+INSERT INTO FILM 
+VALUES(130, 'Promise me this', 'comedy', NULL, NULL, 2007, NULL, 21, 4);
+
+INSERT INTO FILM
+(BROJ, NASLOV, TIP, GODINA, REZISER, BROJ_DISKOVA)
+VALUES(130, 'Promise me this', 'comedy', 2007, 21, 4);
+
+--2.	Napisati SQL naredbu kojom se u bazu podataka dodaju informacije o komediji Life is a miracle koja je snimljena 2004 godine u re�iji Emira Kusturice. Inicjalno su nabavljene 3 kopije filma. 
+INSERT INTO FILM
+(BROJ, NASLOV, TIP, GODINA, REZISER, BROJ_DISKOVA)
+VALUES ((SELECT MAX(BROJ) + 1 FROM FILM), 'Life is a miracle', 'comedy', 2004, (SELECT BROJ FROM REZISER WHERE IME = 'Emir' AND PREZIME = 'Kusturica'), 3); 
+
+
+--3.?lan video kluba Zorana Pavlovi? je danas iznajmio filmove Life is a miracle (�ivot je ?udo) i Promise me this (Zavet). Napisati SQL naredbu kojom se u bazu podataka dodaju odgovaraju?i podaci. 
+INSERT INTO IZNAJMLJIVANJE
+VALUES ((SELECT MAX(BROJ) + 1 FROM IZNAJMLJIVANJE), 
+        (SELECT BROJ FROM FILM WHERE NASLOV = 'Promise me this'), 
+        (SELECT BROJ FROM CLAN WHERE IME = 'Zorana' AND PREZIME = 'Pavlovic'),  
+        SYSDATE,
+        NULL);
+        
+INSERT INTO IZNAJMLJIVANJE
+VALUES ((SELECT MAX(BROJ) + 1 FROM IZNAJMLJIVANJE), 
+        (SELECT BROJ FROM FILM WHERE NASLOV = 'Life is a miracle'), 
+        (SELECT BROJ FROM CLAN WHERE IME = 'Zorana' AND PREZIME = 'Pavlovic'),  
+        '23-MAY-2017',
+        NULL);
+     
+     
+--4 Napisati SQL naredbu kojom se u bazi podataka evidentira da je na dana�nji dan korisnik ?iji je broj 8 vratio film ?iji je broj 53. Film je iznajmljen 6. aprila 2017. godine.
+UPDATE IZNAJMLJIVANJE
+SET DATUM_VRACANJA = SYSDATE -- '23-MAY-2017'
+WHERE FILM = 53 AND CLAN = 8 AND DATUM_IZNAJMLJIVANJA = '06-APR-2017';
+
+--5 Napisati SQL naredbu kojom se u bazi podataka evidentira da je na dana�nji dan korisnik Jovan Markovi? vratio film Andrei Rublev. Film je iznajmljen 6. aprila 2017. godine.
+UPDATE IZNAJMLJIVANJE
+SET DATUM_VRACANJA = SYSDATE -- '23-MAY-2017'
+WHERE FILM = (SELECT BROJ FROM FILM WHERE NASLOV = 'Andrei Rublev')
+      AND CLAN = (SELECT BROJ FROM CLAN WHERE IME = 'Jovan' AND PREZIME = 'Markovic')
+      AND DATUM_IZNAJMLJIVANJA = '06-APR-2017';
+      
+--6 U bazi podataka je gre�kom upisano da je korisnik Jovan Markovic 6. aprila 2017. godine iznajmio film Seven samurai. Korisnik je zaista iznajmio film Two or three things I know about. Napisati SQL naredbu kojom se ova gre�ka ispravlja.
+UPDATE IZNAJMLJIVANJE
+SET FILM = (SELECT BROJ FROM FILM WHERE NASLOV = 'Two or three things I know about')
+WHERE FILM = (SELECT BROJ FROM FILM WHERE NASLOV = 'Seven samurai')
+      AND CLAN = (SELECT BROJ FROM CLAN WHERE IME = 'Jovan' AND PREZIME = 'Markovic')
+      AND DATUM_IZNAJMLJIVANJA = '06-APR-2017';
+      
+--7	Napisati SQL naredbu kojom se bri�u podaci o ?lanu ?iji je broj 8 (Posmatrati efekat stranog klju?a na brisanje podataka).
+DELETE FROM CLAN WHERE BROJ = 8;
+
+--8 Napisati SQL naredbu koaj iz baze podataka bri�e sve podatke o iznajmljivanju filmova Anna Boleyn i Anne and Muriel. 
+DELETE FROM IZNAJMLJIVANJE
+WHERE FILM IN (SELECT BROJ FROM FILM WHERE NASLOV = 'Anne and Muriel' OR NASLOV = 'Anna Boleyn');
+
+--9 Napisati SQL naredbu kojom se kreira pogled REZISER_FILMOVI koji sadr�i informaciej o broju, imenu i prezimenu re�isera kao i o broju filmova koej je re�irao. Nakon kreiranje pogleda napisati SQL upit koji prikazuje podatke o re�iserima koji su snimili vi�e od tri filma.
+
+CREATE VIEW REZISER_FILMOVI
+AS
+SELECT REZISER.BROJ, IME, PREZIME, COUNT(*) BROJ_FILMOVA
+FROM REZISER INNER JOIN FILM ON REZISER.BROJ = FILM.REZISER
+GROUP BY REZISER.BROJ, IME, PREZIME;
+
+SELECT * 
+FROM REZISER_FILMOVI 
+WHERE BROJ_FILMOVA > 3;
+
+--10 
+CREATE VIEW IZNAJMLJENI_FILMOVI
+AS
+SELECT IME, PREZIME, NASLOV, DATUM_IZNAJMLJIVANJA
+FROM CLAN INNER JOIN IZNAJMLJIVANJE ON CLAN.BROJ = IZNAJMLJIVANJE.CLAN
+     INNER JOIN FILM ON FILM.BROJ = IZNAJMLJIVANJE.FILM
+WHERE DATUM_VRACANJA IS NULL;
+
+SELECT * 
+FROM IZNAJMLJENI_FILMOVI 
+WHERE sysdate - DATUM_IZNAJMLJIVANJA > 15;
+
+--11 Napisati SQL naredbu kojom se nad kolonama IME i PREZIME u tabeli ?lan FORMIRA indeks. 
+CREATE INDEX CLAM_IMEPREZIME_IDX
+ON CLAN(IME ASC, PREZIME ASC);

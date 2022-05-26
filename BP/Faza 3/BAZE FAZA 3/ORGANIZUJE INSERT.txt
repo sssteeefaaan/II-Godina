@@ -1,0 +1,5 @@
+INSERT INTO Organizuje values('Elfakijada 2020','12-AUG-2020','Alpsko skijanje','08:00h');
+INSERT INTO Organizuje values('Elfakijada 2020','12-AUG-2020','Plivanje 100m','15:15h');
+INSERT INTO Organizuje values('Elfakijada 2020','12-AUG-2020','Dresurno jahanje','18:00h');
+INSERT INTO Organizuje values('Elfakijada 2020','12-AUG-2020','Mixed Martial Arts','16:45h');
+INSERT INTO Organizuje values('Elfakijada 2020','12-AUG-2020','Diving 10m','12:00h');

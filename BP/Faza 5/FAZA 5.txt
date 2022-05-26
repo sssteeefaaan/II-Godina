@@ -1,0 +1,137 @@
+PETA FAZA PROJEKTOVANJA BAZE PODATAKA
+ALEKSIĆ STEFAN 16995
+
+--1. Za svaku od disciplina "Elfakijade 2020" prikazati redni broj takmičara, kao i njegovo puno ime.
+        SELECT DISTINCT U.Naziv_discipline,U.Redni_broj,UK.Prezime || ' ' || UK.Srednje_ime || ' ' || UK.Ime AS Puno_ime
+        FROM
+        UCESNIK UK FULL OUTER JOIN UCESTVUJE U ON UK.Sifra=U.Sifra
+        FULL OUTER JOIN ORGANIZUJE O ON U.Naziv_discipline=O.Naziv_discipline
+        WHERE O.Naziv LIKE 'Elfakijada%'
+        ORDER BY U.Naziv_discipline ASC,U.Redni_broj ASC;
+
+--2. Prikazati sve takmičare koji učestvuju na više od jedne discipline.
+        SELECT Uk.Prezime,Uk.Ime,Count(*) Broj_disciplina
+        FROM UCESNIK UK INNER JOIN UCESTVUJE U
+        ON UK.Sifra=U.Sifra
+        GROUP BY(UK.Ime,UK.Prezime)
+        HAVING COUNT(*)>1
+        ORDER BY Broj_disciplina DESC,UK.Prezime ASC;
+
+--3.1. Odrediti prosečnu starost takmičara za svaku disciplinu.
+        SELECT U.Naziv_discipline, TO_CHAR(ROUND (AVG(extract(year from sysdate)-extract(year from UK.Datum_rodjenja)),3)) || ' god.' as Prosecna_starost
+        FROM UCESNIK UK RIGHT JOIN UCESTVUJE U ON UK.Sifra=U.Sifra
+        GROUP BY(U.Naziv_discipline)
+        ORDER BY Prosecna_starost ASC;
+
+--3.2. Odrediti sve discipline na kojima najmlađi učesnik nije mlađi od 19 godina.
+        SELECT U.Naziv_discipline, TO_CHAR(MIN(extract(year from sysdate)-extract(year from UK.Datum_rodjenja))) || ' god.' AS Min_starost
+        FROM UCESNIK UK RIGHT JOIN UCESTVUJE U ON UK.Sifra=U.Sifra
+        GROUP BY U.Naziv_discipline
+        HAVING MIN(extract(year from sysdate)-extract(year from UK.Datum_rodjenja))>19
+        ORDER BY Min_starost ASC;
+
+--3.3. Odrediti sve discipline na kojima najstariji učesnik nije stariji od 30 godina.
+        SELECT U.Naziv_discipline, TO_CHAR(MAX(extract(year from sysdate)-extract(year from UK.Datum_rodjenja))) || ' god.' AS Max_starost
+        FROM UCESNIK UK RIGHT JOIN UCESTVUJE U ON UK.Sifra=U.Sifra
+        GROUP BY U.Naziv_discipline
+        HAVING MAX(extract(year from sysdate)-extract(year from UK.Datum_rodjenja)) < 30
+        ORDER BY Max_starost ASC;
+
+--4. Prikazati sve brojeve telefona takmičara Kajakaštva.
+        SELECT UK.Ime || ' ' ||SUBSTR( UK.Srednje_ime,1,1) || '. ' || UK.Prezime as Puno_ime, KT.Kontakt_telefon
+        FROM UCESNIK UK, KONTAKT_TELEFON KT,UCESTVUJE U
+        WHERE UK.Sifra=KT.Sifra AND U.Sifra=UK.Sifra AND U.Naziv_discipline='Kajakastvo'
+        ORDER BY PUNO_IME ASC;
+
+--5. Prikazati lokacije, sa kapacitetom između 50 i 100 hiljada, na kojima se održavaju discipline Elfakijade 2020, kao i imena tih disciplina.
+        SELECT L.Naziv,L.Adresa,O.Naziv_discipline,L.Kapacitet
+        FROM ODRZAVA_SE O, LOKACIJA L,ORGANIZUJE OG
+        WHERE L.Naziv=O.Naziv AND L.Adresa=O.Adresa AND OG.Naziv_discipline=O.Naziv_discipline AND OG.Naziv LIKE 'Elfakijada%'
+        GROUP BY O.Naziv_discipline,L.Naziv,L.Adresa,L.Kapacitet
+        HAVING L.Kapacitet BETWEEN '50000' AND '100000' ;
+
+--6. Prikazati termine održavanja disciplina na lokacijama, kao i njihovo trajanje, u rastućem redosledu vremena početka.
+        SELECT L.Naziv,O.Naziv_discipline,D.Vreme_pocetka,D.Vreme_kraja,
+        TO_CHAR( TRUNC ( ( (TO_NUMBER(SUBSTR(D.Vreme_kraja,1,2)) - TO_NUMBER(SUBSTR(D.Vreme_pocetka,1,2 )))*60 + TO_NUMBER(SUBSTR(D.Vreme_kraja,4,2)) - TO_NUMBER(SUBSTR(D.Vreme_pocetka,4,2 )))/60,0)) || ' sati i ' ||
+        TO_CHAR ( MOD (((TO_NUMBER(SUBSTR(D.Vreme_kraja,1,2)) - TO_NUMBER(SUBSTR(D.Vreme_pocetka,1,2 )))*60 + (TO_NUMBER(SUBSTR(D.Vreme_kraja,4,2)) - TO_NUMBER(SUBSTR(D.Vreme_pocetka,4,2 )))),60)) || ' minuta 'AS Trajanje
+        FROM LOKACIJA L,ODRZAVA_SE O,DISCIPLINA D
+        WHERE NOT((NOT O.Naziv_discipline=D.Naziv_discipline) OR (NOT L.Naziv=O.Naziv))
+        ORDER BY O.Vreme_pocetka;
+
+--7. Prikazati učesnike koji učestvuju i u Plivanju na 100m i u Kajakaštvu.
+        SELECT UK.Sifra, UK.Ime || ' ' || UK.Srednje_ime || ' ' || UK.Prezime AS Puno_ime
+        FROM UCESTVUJE U, UCESNIK UK
+        WHERE U.Sifra=UK.Sifra AND U.Naziv_discipline LIKE 'Plivanje%'
+        INTERSECT
+        SELECT UK.Sifra, UK.Ime || ' ' || UK.Srednje_ime || ' ' || UK.Prezime AS Puno_ime
+        FROM UCESTVUJE U, UCESNIK UK
+        WHERE U.Sifra=UK.Sifra AND U.Naziv_discipline = 'Kajakastvo';
+
+--8. Prikazati sve discipline na kojima učestvuju Stefan Aleksic i Tina Stanojevic.
+        SELECT U.Naziv_discipline,U.Vreme_pocetka
+        FROM UCESTVUJE U, UCESNIK UK
+        WHERE U.Sifra=UK.Sifra AND (UK.Ime ='Stefan' AND UK.Prezime='Aleksic')
+        UNION
+        SELECT U.Naziv_discipline,U.Vreme_pocetka
+        FROM UCESTVUJE U, UCESNIK UK
+        WHERE U.Sifra=UK.Sifra AND (UK.Ime ='Tina' AND UK.Prezime='Stanojevic');
+
+--9. Prikazati brojeve telefona učesnika iz USA i France, a koji ne učestvuju u Dresurnom jahanju.
+        SELECT UK.Sifra, UK.Ime || ' ' || UK.Srednje_ime || ' ' || UK.Prezime AS Puno_ime, KT.Kontakt_telefon
+        FROM UCESNIK UK, KONTAKT_TELEFON KT
+        WHERE KT.Sifra=UK.Sifra AND (UK.Sifra LIKE ('USA%') OR UK.Sifra LIKE ('FR%'))
+        MINUS
+        SELECT UK.Sifra, UK.Ime || ' ' || UK.Srednje_ime || ' ' || UK.Prezime AS Puno_ime, KT.Kontakt_telefon
+        FROM UCESNIK UK, KONTAKT_TELEFON KT, UCESTVUJE U
+        WHERE KT.Sifra=UK.Sifra AND UK.Sifra=U.Sifra AND U.Naziv_discipline = 'Dresurno jahanje';
+    
+--10. Prikazati učenike koji učestvuju na više od 2 discipline.
+	--KORELISAN
+        SELECT UK.Sifra, UK.Ime || ' ' || UK.Srednje_ime || ' ' || UK.Prezime AS Puno_ime
+        FROM UCESNIK UK
+        WHERE
+        (
+            SELECT COUNT(*) AS Broj_ucesnika
+            FROM UCESTVUJE U
+            WHERE UK.Sifra=U.Sifra
+            GROUP BY(U.Sifra)
+        ) > 2;
+
+--11. Prikazati sve discipline na kojima učestvuje više od 5 učesnika.
+	--KORELISAN
+        SELECT *
+        FROM DISCIPLINA D
+        WHERE
+        (
+            SELECT COUNT(*) AS Broj_ucesnika
+            FROM UCESTVUJE U, UCESNIK UK
+            WHERE UK.Sifra=U.Sifra AND D.Naziv_Discipline=U.Naziv_discipline
+            GROUP BY(U.Naziv_discipline)
+        ) > 5;
+        
+	--NEKORELISAN
+        SELECT Naziv_discipline,Broj_ucesnika
+        FROM
+        (
+            SELECT U.Naziv_discipline,COUNT(*) AS Broj_ucesnika
+            FROM UCESTVUJE U, UCESNIK UK
+            WHERE UK.Sifra=U.Sifra
+            GROUP BY(U.Naziv_discipline)
+        )
+        WHERE Broj_ucesnika>5;
+
+--12. Prikazati sve učesnike na disciplini, koji imaju više godina od godina prosečne starosti svih učesnika te discipline.
+        --KORELISAN
+        SELECT U.Naziv_discipline,UK.Ime, UK.Prezime, EXTRACT(YEAR FROM(SYSDATE))-EXTRACT(YEAR FROM(UK.Datum_rodjenja)) AS Starost
+        FROM UCESNIK UK, UCESTVUJE U
+        WHERE U.Sifra=UK.Sifra
+        AND
+        EXTRACT(YEAR FROM(SYSDATE))-EXTRACT(YEAR FROM(UK.Datum_rodjenja))
+        >	(
+                SELECT AVG(EXTRACT(YEAR FROM(SYSDATE))-EXTRACT(YEAR FROM(UKU.Datum_rodjenja))) AS PROSEK
+                FROM UCESNIK UKU,UCESTVUJE UU
+                WHERE UKU.Sifra=UU.Sifra AND UU.Naziv_discipline=U.Naziv_discipline
+                GROUP BY(UU.Naziv_discipline)
+            )
+        ORDER BY U.Naziv_discipline ASC;
+

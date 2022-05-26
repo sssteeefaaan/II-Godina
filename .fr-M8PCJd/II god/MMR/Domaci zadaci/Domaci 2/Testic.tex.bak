@@ -1,0 +1,671 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath}
+\usepackage{fancyhdr}
+\usepackage{times}
+\usepackage{gauss}
+\usepackage{tabto}
+\usepackage{amssymb}
+\usepackage[T1]{fontenc}
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
+ \usepackage[usenames,dvipsnames]{xcolor}
+ \definecolor{violet}{rgb}{0.5, 0.0, 1.0}
+ \usepackage{hyperref}
+ \hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=violet,
+}
+\newcommand{\doublerule}[1][.4pt]{%
+  \noindent
+  \makebox[0pt][l]{\rule[.7ex]{\linewidth}{#1}}%
+  \rule[.3ex]{\linewidth}{#1}}
+ \newcommand{\bigzero}{\mbox{\normalfont\Large\bfseries 0}}
+\newcommand{\rvline}{\hspace*{-\arraycolsep}\vline\hspace*{-\arraycolsep}}
+  \linespread{1.2}
+\begin{document}
+\begin{titlepage}
+\begin {center}
+\huge {Univerzitet u Nišu\\Elektronski fakultet
+\vspace{7.5cm}
+\\
+\doublerule
+\\
+\vspace{1cm}
+\textbf {\Huge{{Matrični metodi u računarstvu \\ Domaći zadatak II}}}
+\vspace{1cm}
+\\
+\doublerule
+\\
+\vspace{7.5cm}
+\textit{{Stefan Aleksić 16995}\\\Large{27. Mart, 2020. god.}}}
+\end{center}
+\end{titlepage}
+\newpage
+\large{
+\section*{Zadaci:}}
+\subparagraph*{1.}
+{Data je $LU$ faktorizacija matrice $A$:\vspace{3mm}
+\begin{center}
+$
+A =
+\begin{bmatrix}
+2 & -1 & 0\\
+-6 & 4 & -1\\
+4 & -6 & 7
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 & 0 & 0\\
+-3 & 1 & 0\\
+2 & -4 & 1
+\end{bmatrix}
+\begin{bmatrix}
+2 & -1 & 0\\
+0 & 1 & -1\\
+0 & 0 & 3
+\end{bmatrix}
+$\vspace{3mm}
+\end{center}
+Opisati, bez izračunavanja, koje elementarne operacije nad vrstama su upotrebljene za dovođenje matrice $A$ na gornje trougaoni oblik. Voditi računa o redosledu navođenja operacija.
+}
+\subparagraph*{Rešenje:}
+Kako bi prešli sa matrice $A$ na proizvod matrica $LU$, odnosno dobili gornju trougaonu matricu $U$ potrebno je:\\
+\\
+1: Množenje prve vrste količnikom drugog i prvog elementa prve kolone $(R_1*\frac{\displaystyle{a_{21}}}{\displaystyle{a_{11}}})$.\\
+2: Oduzimanje tako pomnožene prve vrste od druge vrste matrice $A$ $(R_2 - R_1*\frac{\displaystyle{a_{21}}}{\displaystyle{a_{11}}})$.\\
+3: Množenje prve vrste matrice $A$ količnikom trećeg i prvog elementa prve kolone matrice $(R_1*\frac{\displaystyle{a_{31}}}{\displaystyle{a_{11}}})$.\\
+4: Oduzimanje tako pomnožene prve vrste od treće vrste matrice $A$ $(R_3 - R_1*\frac{\displaystyle{a_{31}}}{\displaystyle{a_{11}}})$.\\
+5: Množenje druge vrste  količnikom trećeg i drugog elementa druge kolone matrice $(R_2*\frac{\displaystyle{a_{32}}}{\displaystyle{a_{22}}})$.\\
+6: Oduzimanje tako pomnožene druge vrste od treće vrste matrice $A$ $(R_3 - R_2*\frac{\displaystyle{a_{32}}}{\displaystyle{a_{22}}})$.\\
+\section*{ Napomena:}{Primetiti da se oduzimanje može gledati kao sabiranje, pritom kolonu kojom oduzimamo množimo količnikom pomnoženim sa $(-1)$:}\vspace{3mm}
+\begin{center}
+$
+  A=
+  \begin{gmatrix}[b]
+   2 & -1 & 0 \\
+   -6& 4 & -1 \\
+   4 & -6 & 7
+  \rowops
+   \add[*3]{0}{1}
+   \add[*(-2)]{0}{2}
+  \end{gmatrix}\simeq
+  \begin{gmatrix}[b]
+   2 & -1 & 0 \\
+   0 & 1 & -1 \\
+   0 & -4 & 7
+  \rowops
+    \add[*4]{1}{2}
+  \end{gmatrix}
+ \simeq
+ \begin{gmatrix}[b]
+   2 & -1 & 0 \\
+   0 & 1 & -1 \\
+   0 & 0 & 3
+   \end{gmatrix}
+   = U
+   $\vspace{3mm}
+ \end{center}
+\subparagraph*{2.}
+{Neka su $a_{i}\ne 0$ međusobno različiti brojevi. Odrediti $LU$ faktorizaciju sledećih Vandermondovih matrica.\vspace{3mm}
+\begin{center}
+$
+V_2 =
+\begin{bmatrix}
+1 & 1\\
+a_1 & a_2
+\end{bmatrix}
+, V_3 =
+\begin{bmatrix}
+1 & 1 & 1\\
+a_1 & a_2 & a_3\\
+a_1^2 & a_2^2 & a_3^2
+\end{bmatrix}
+, V_4 =
+\begin{bmatrix}
+1 & 1 & 1 & 1\\
+a_1 & a_2 & a_3 & a_4\\
+a_1^2 & a_2^2 & a_3^2 & a_4^2\\
+a_1^3 & a_2^3 & a_3^3 & a_4^3
+\end{bmatrix}
+$\vspace{3mm}
+\end{center}
+Opisati uočenu pravilnost.}
+\subparagraph*{Rešenje:}\vspace{3mm}
+\begin{center}
+$
+V_2=
+\begin{gmatrix}[b]
+1 & 1\\
+a_1 & a_2
+\rowops
+\add[*(-a_1)]{0}{1}
+\end{gmatrix}
+\implies
+V_2=
+L_{V_2}U_{V_2}=
+\begin{bmatrix}
+1 & 0\\
+a_1 & 1
+\end{bmatrix}
+\begin{bmatrix}
+1 & 1\\
+0 & a_2 - a_1
+\end{bmatrix}
+\vspace{5mm}
+\newline
+V_3 =
+\begin{gmatrix}[b]
+1 & 1 & 1\\
+a_1 & a_2 & a_3\\
+a_1^2 & a_2^2 & a_3^2
+\rowops
+\add[*(-a_1)]{0}{1}
+\add[*(-a_1^2)]{0}{2}
+\end{gmatrix}
+\simeq
+\begin{gmatrix}[b]
+1 & 1 & 1\\
+0 & a_2-a_1 & a_3-a_1\\
+0 & a_2^2 -a_1^2& a_3^2-a_1^2
+\rowops
+\add[*(-\frac{\displaystyle{a_2^2 -a_1^2}}{\displaystyle{a_2-a_1}}=\displaystyle{-(a_1+a_2))}]{1}{2}
+\end{gmatrix}
+$\vspace{3mm}
+\end{center}
+\begin{align*}\tag{2.1}\label{eq2.1}
+\\
+(a_3^2-a_1^2)-((a_3-a_1)(a_1+a_2))=(a_3-a_1)((a_3+a_1)-(a_1+a_2))=(a_3-a_1)(a_3-a_2) = \boldsymbol{v_{33}}
+\end{align*}
+\newline
+$
+\implies
+L_{V_3}=
+\begin{bmatrix}
+1 & 0& 0\\
+a_1 & 1 & 0\\
+a_1^2 & \frac{\displaystyle{a_2^2-a_1^2}}{\displaystyle{a_2 - a_1}} & 1
+\end{bmatrix}
+=
+\begin{bmatrix}
+1 & 0 & 0\\
+a_1 & 1& 0\\
+a_1^2 & a_2 + a_1 & 1
+\end{bmatrix}
+=
+\left[
+\begin{array}{c | c}
+  L_{V_2} & O \\
+  \hline
+  \begin{array}{cc}
+  a_1^2 & a_1+a_2
+  \end{array} & 1
+ \end{array}
+\right]
+\vspace{5mm}
+\newline
+\implies U_{V_3}=
+\begin{bmatrix}
+1 & 1 & 1\\
+0 & a_2-a_1& a_3-a_1\\
+0 & 0 & \boldsymbol{v_{33}}
+\end{bmatrix}
+=
+\left[
+\begin{array}{c | c}
+  U_{V_2} & 
+  \begin{array}{c}
+  1\\
+  a_3-a_1
+\end{array}   \\
+  \hline
+ O & \boldsymbol{v_{33}}
+ \end{array}
+\right]
+\vspace{5mm}
+\newline
+V_4=
+\begin{gmatrix}[b]
+1 & 1 & 1 & 1\\
+a_1 & a_2 & a_3 & a_4\\
+a_1^2 & a_2^2 & a_3^2 & a_4^2\\
+a_1^3 & a_2^3 & a_3^3 & a_4^3
+\rowops
+\add[*(-a_1)]{0}{1}
+\add[*(-a_1^2)]{0}{2}
+\add[*(-a_1^3)]{0}{3}
+\end{gmatrix}
+\vspace{5mm}
+\simeq
+\newline
+\simeq
+\begin{gmatrix}[b]
+1 & 1 & 1 & 1\\
+0 & a_2-a_1 & a_3-a_1  & a_4-a_1 \\
+0 & a_2^2 -a_1^2& a_3^2 -a_1^2& a_4^2-a_1^2\\
+0 & a_2^3 -a_1^3& a_3^3-a_1^3 & a_4^3-a_1^3
+\rowops
+\add[*(-\frac{\displaystyle{a_2^2-a_1^2}}{\displaystyle{a_2-a_1}}=-\displaystyle{(a_1+a_2)})]{1}{2}
+\add[*(-\frac{\displaystyle{a_2^3-a_1^3}}{\displaystyle{a_2-a_1}}=-\displaystyle{(a_1^2+a_1a_2+a_2^2)})]{1}{3}
+\end{gmatrix}
+\vspace{5mm}
+\newline
+\simeq
+\begin{gmatrix}[b]
+1 & 1 & 1 & 1\\
+0 & a_2-a_1 & a_3-a_1  & a_4-a_1 \\
+0 & 0 & \boldsymbol{v_{33}}&  \boldsymbol{v_{34}}\\
+0 & 0 & \boldsymbol{v_{43}} & \boldsymbol{v_{44}^{'}}
+\rowops
+\add[*(-\frac{\displaystyle{\boldsymbol{v_{43}}}}{\displaystyle{\boldsymbol{v_{33}}}})]{2}{3}
+\end{gmatrix}
+$
+\begin{align*}\tag{2.2}\label{2.2}
+\\
+(a_3^3-a_1^3)-((a3-a1)(a_1^2+a_1a_2+a_2^2))=(a_3-a_1)((a_1^2+a_1a_3+a_3^2)-(a_1^2+a_1a_2+a_2^2))=\vspace{2mm}\\
+=(a_3-a_1)(a_3-a_2)(a_1+a_2+a_3)= \boldsymbol{v_{43}}
+\end{align*}
+\begin{align*}\tag{2.3}\label{eq2.3}
+\\
+(a_4^2-a_1^2)-((a_4-a_1)(a_1+a_2))=(a_4-a_1)((a_4+a_1)-(a_1+a_2))=(a_4-a_1)(a_4-a_2) = \boldsymbol{v_{34}}
+\end{align*}
+\begin{align*}\tag{2.4}\label{2.4}
+\\
+(a_4^3-a_1^3)-((a4-a1)(a_1^2+a_1a_2+a_2^2))=(a_4-a_1)((a_1^2+a_1a_4+a_4^2)-(a_1^2+a_1a_2+a_2^2))=\vspace{2mm}\\
+=(a_4-a_1)(a_4-a_2)(a_1+a_2+a_4)= \boldsymbol{v_{44}^{'}}
+\end{align*}
+\begin{align*}\tag{2.5}\label{2.5}
+\\
+\boldsymbol{v_{44}{'}}-\boldsymbol{v_{34}}*\frac{\displaystyle{\boldsymbol{v_{43}}}}{\displaystyle{\boldsymbol{v_{33}}}}=\boldsymbol{v_{44}{'}}-(a_4-a_1)(a_4-a_2)*\frac{\displaystyle{(a_3-a_1)(a_3-a_2)(a_1+a_2+a_3)}}{\displaystyle{(a_3-a_1)(a_3-a_2)}}=\\
+=(a_4-a_1)(a_4-a_2)(a_1+a_2+a_4)-(a_4-a_1)(a_4-a_2)(a_1+a_2+a_3)=\vspace{2mm}\\
+=(a_4-a_1)(a_4-a_2)(a_1+a_2+a_4-a_1-a_2-a_3)=(a_4-a_1)(a_4-a_2)(a_4-a_3)=\boldsymbol{v_{44}}
+\end{align*}
+\vspace{2mm}
+\newline
+$
+\implies
+L_{V_4}=
+\begin{bmatrix}
+1 & 0 & 0 & 0\\
+a_1 & 1 & 0 & 0\\
+a_1^2 & a_1+a_2 & 1 & 0\\
+a_1^3 & a_2^2+a_2a_1+a_1^2 & \boldsymbol{v_{43}} & 1\\
+\end{bmatrix}
+=
+\left[
+\begin{array}{c|c}
+L_{V_3} & O\\\hline
+\begin{array}{ccc}
+a_1^3 & a_2^2+a_2a_1+a_1^2 & \boldsymbol{v_{43}}
+\end{array} & 1
+\end{array}
+\right]
+\vspace{5mm}
+\newline
+\implies
+U_{V_4}=
+\begin{bmatrix}
+1 & 1 & 1 & 1\\
+0 & a_2-a_1 & a_3-a_1 & a_4 - a_1\\
+0 & 0 & \boldsymbol{v_{33}} & \boldsymbol{v_{34}}\\
+0 & 0 & 0 & \boldsymbol{v_{44}}
+\end{bmatrix}
+=
+\left[
+\begin{array}{c|c}
+U_{V_3} & \begin{array}{c}
+1\\a_4-a_1\\ \boldsymbol{v_{34}}
+\end{array}\\\hline
+O & \boldsymbol{v_{44}}
+\end{array}
+\right]
+$
+\paragraph*{Zaključak:}
+Na osnovu prethodnih dekompozicija možemo zaključiti sledeće:\\
+\begin{align*}
+V_n=
+\begin{bmatrix}
+1 & 1 & 1 & \cdots & 1 & 1\\
+a_1 & a_2 & a_3 & \cdots & a_{n-1} & a_n\\
+a_1^2 & a_2^2 & a_3^2 & \cdots & a_{n-1}^2  & a_n^2\\
+\vdots & \vdots & a_3^3 & \ddots & \vdots & \vdots\\
+a_1^{n-1} & a_2^{n-1} &a_3^{n-1} & \cdots & a_{n-1}^{n-1} & a_n^{n-1}
+\end{bmatrix}
+=L_{V_n}U_{V_n}=\hspace*{5cm}\\
+=\left[
+\begin{array}{c|c}
+L_{V_{n-1}} & O\\ \hline
+\begin{array}{cccc}
+a_1^{n-1} & \frac{\displaystyle{a_2^{n-1}-a_1^{n-1}}}{\displaystyle{a_2-a_1}} & \cdots & \boldsymbol{v_{n(n-1)}}
+\end{array} & 1
+\end{array}
+\right]
+\left[
+\begin{array}{c|c}
+U_{V_{n-1}} & \begin{array}{c}
+1 \\ a_n-a_1 \\ (a_n-a_1)(a_n-a_2) \\ \vdots \\ \boldsymbol{v_{(n-1)n}}
+\end{array}\\\hline
+O & \boldsymbol{v_{nn}}
+\end{array}
+\right]\\
+\end{align*}
+Gde je $\boldsymbol{v_{nm}}=\begin{cases}\prod_{p=1}^{n-1} (a_m-a_p), (n\leq m)\iff (\boldsymbol{v_{nm}} \in U)\\
+\sum_{k=1}^{m}a_k * \prod_{p=1}^{m-1} (a_m-a_p), (n> m) \iff (\boldsymbol{v_{nm}} \in L)\\
+\end{cases}$, odnosno $\boldsymbol{v_{nm}}\in R.$
+\subparagraph*{3.}
+{Da li su sledeća tvrđenja tačna?\\
+- Kvadratna matrica $A$ koja ima neki element glavne dijagonale jednak nuli je singularna
+matrica.\\
+- Ukoliko je neki pivot element matrice $A$ u $LU$ faktorizaciji jednak nuli, matrica $A$ je singularna.\\
+Obrazložiti odgovore.}
+\subparagraph*{Rešenje:}
+\label{r1}
+{-Prvu tvrdnju lako možemo opovrgnuti nalaženjem regularne matrice koja za neki od elemenata glavne dijagonale ima nulu, na primer:}\vspace{3mm}
+\begin{center}
+$
+S=
+\begin{bmatrix}
+0 & 2 & 3\\
+4 & 5 & 6\\
+7 & 8 & 9
+\end{bmatrix}
+$
+\end{center}
+\vspace{3mm}
+Potražimo determinantu matrice S:
+\vspace{3mm}
+\begin{equation*}\tag{3.1}\label{3.1}
+det(S)=
+\begin{vmatrix}
+0 & 2 & 3\\
+4 & 5 & 6\\
+7 & 8 & 9
+\end{vmatrix}
+= (0*5*9)+(2*6*7)+(3*4*8) - ( (7*5*3) + (8*6*0) + (9*4*2) ) =\vspace{3mm}
+\end{equation*}
+$=84+96-(105+72)=180-177=3$
+\vspace{3mm}\\
+Čak možemo otići i korak dalje:\vspace{3mm}
+\begin{equation*}\tag{3.2}\label{3.2}
+S_1=
+\begin{bmatrix}
+0 & 2 & 3\\
+4 & 0 & 6\\
+7 & 8 & 0
+\end{bmatrix}\implies
+det(S)=
+\begin{vmatrix}
+0 & 2 & 3\\
+4 & 0 & 6\\
+7 & 8 & 0
+\end{vmatrix}
+= (0*0*0)+(2*6*7)+(3*4*8) - ( (7*0*3) + (8*6*0) + (0*4*2) )=
+\end{equation*}
+$=84+96=160 \vspace{3mm} \\
+\implies$
+{Matrica koja na glavnoj dijagonali ima neke, ili čak sve elemente jednake nuli, ne mora da bude singularna.}\vspace{3mm}\\
+-Za ispitivanje druge tvrdnje možemo se pozvati na prvu \eqref{3.1}, s obzirom da je prvi pivot element ujedno i prvi element glavne dijagonale.
+\\Ali hajde da vidimo kako bi izgledala LU faktorizacija matrice $S$, s obzirom da znamo vezu između $det(S)$ i $det(U)$:
+\begin{center}
+$S=LU \implies det(S)=det(LU)=det(L)*det(U)=1*det(U)=det(U)$
+\end{center}
+Odavde vidimo da je $det(S) = det(U)$.\vspace{2mm}
+\\Prenego što krenemo sa računanjem matrice $U$, moramo prvo da uradimo permutaciju matrice $S$, s obzirom da nam je pivot element jednak nuli. Za to ćemo iskoristiti permutacionu matricu $P$:
+\begin{center}
+$
+  S=
+  \begin{gmatrix}[b]
+   0 & 2 & 3 \\
+   4& 5 & 6 \\
+   7 & 8 & 9
+  \rowops
+   \swap{0}{1}
+  \end{gmatrix}\implies
+  PS=
+   \begin{gmatrix}[b]
+   4 & 5 & 6 \\
+   0 & 2 & 3 \\
+   7 & 8 & 9
+  \end{gmatrix}\implies
+  P=
+  \begin{gmatrix}[b]
+   0 & 1 & 0 \\
+   1 & 0 & 0 \\
+   0 & 0 & 1
+   \end{gmatrix}
+   \newline
+   $
+   \end{center}
+   \textit{Pravilo permutacione matrice:}
+   \newline
+   $P*P^T=P^T*P=I\implies P^T=P^{-1}=
+   \begin{bmatrix}
+   0 & 1 & 0\\
+   1 & 0 & 0\\
+   0 & 0 & 1
+   \end{bmatrix}=P\implies
+   det(P)=
+   \begin{vmatrix}
+   0 & 1 & 0\\
+   1 & 0 & 0\\
+   0 & 0 & 1
+   \end{vmatrix}=-1
+   $
+   \vspace{2mm}
+   \\
+   Više ne tražimo faktorizaciju matrice $S$, već matrice $PS$:
+\begin{center}
+$
+  PS=
+  \begin{gmatrix}[b]
+   4 & 5 & 6 \\
+   0 & 2 & 3 \\
+   7 & 8 & 9
+  \rowops
+   \add[*(-7/4)]{0}{2}
+  \end{gmatrix}
+ \simeq
+ \begin{gmatrix}[b]
+   4 & 5 & 6\\
+   0 & 2 & 3 \\
+   0 & -\frac{{3}}{{4}} & -\frac{{3}}{{2}}
+    \rowops
+   \add[*(3/8)]{1}{2}
+   \end{gmatrix}
+   \simeq
+ \begin{gmatrix}[b]
+   4 & 5 & 6\\
+   0 & 2 & 3 \\
+   0 & 0 & -\frac{{3}}{{8}}
+     \end{gmatrix}
+   = U
+   $
+   \end{center}
+   \begin{equation*}
+   PS=\tilde L U \quad | \quad *(P^{-1})\implies
+   P^{-1}PS=P^{-1}\tilde L U\implies det(P^{-1}PS)=det(P^{-1}\tilde L U)
+   \end{equation*}
+   \begin{equation*}
+   \implies det(S)=det(P^{-1})*det(\tilde  L)*det(U)\\
+   \implies det(S)=(-1)*(4*2*(-\frac{\displaystyle3}{\displaystyle8}))=3
+   \end{equation*}
+   $\implies$ Ni matrica sa nulom za pivot element ne mora biti singularna.
+\subparagraph*{4.}
+{Data je $LU$ faktorizacija matrice $A$ sa
+\begin{center}
+$
+\begin{bmatrix}
+\ a_1\  \\
+\hline
+a_2\\
+\hline
+a_3
+\end{bmatrix}
+=
+\begin{bmatrix}
+\ 1 \ & \ 0\  & \ 0\ \\
+\hline
+l_{21} & 1 & 0\\
+\hline
+l_{31} & l_{32} & 1
+\end{bmatrix}
+\begin{bmatrix}
+\ u_1\  \\
+\hline
+u_2\\
+\hline
+u_3
+\end{bmatrix}
+$
+\end{center}
+Dokazati da važi:
+\begin{center}
+$
+L(a_1) = L(u_1)
+\linebreak
+L(a_1, a_2) = L(u_1, u_2)
+\linebreak
+L(a_1, a_2, a_3) = L(u_1, u_2, u_3)
+$
+\end{center}
+Opisati i dokazati analogno tvrđenje za kolone matrica $A$ i $L$.}
+\subsection*{Rešenje:}
+Pretpostavljamo da su vektori: $a_1,a_2,a_3,u_1,u_2,u_3 \in \mathcal{M}_{1 \times n}$\\
+Na osnovu: $A=LU$, dobijamo sistem:
+\begin{align*}
+\tag{4.1}\label{eq4.1}
+\\
+\iff \begin{cases}
+\boldsymbol{a)} \quad a_1 =
+\begin{bmatrix}
+1 & 0 & 0
+\end{bmatrix}
+\begin{bmatrix}
+\ u_1\ \\\hline
+u_2\\\hline
+u_3
+\end{bmatrix} = u_1 \implies a_1=u_1\\
+\boldsymbol{b)} \quad a_2=
+\begin{bmatrix}
+l_{21} & 1 & 0
+\end{bmatrix}
+\begin{bmatrix}
+\ u_1\ \\\hline
+u_2\\\hline
+u_3
+\end{bmatrix} = l_{21}u_1 + u_2 \implies a_2=l_{21}u_1+u_2\\
+\boldsymbol{c)} \quad a_3=
+\begin{bmatrix}
+l_{31} & l_{32} & 1
+\end{bmatrix}
+\begin{bmatrix}
+\ u_1\ \\\hline
+u_2\\\hline
+u_3
+\end{bmatrix} = l_{31}u_1 + l_{32}u_2 + u_3 \implies a_3=l_{31}u_1+l_{32}u_2+u_3\\
+\end{cases}
+\end{align*}
+\subsection*{a)}
+$a_1=u_1 \implies  $vektori $a_1$ i $u_1$ su linearno zavisni. \\$ L(a_1)=\{\forall p_x \in R^x\quad | \quad p_x=\lambda_1 a_1 \quad | \quad \lambda_1 \in R\}\\L(u_1)=\{\forall q_x \in R^x\quad | \quad q_x=\xi_1 u_1 \quad | \quad \xi_1 \in R\}\vspace{3mm}\\
+\implies \lambda_1 =\xi_1 \implies L(a_1)=L(u_1)$
+\subsection*{b)}
+$a_2=l_{21}u_1+u_2 \implies  $vektori $a_2 ,u_1$ i $u_2$ su linearno zavisni. \\$ L(a_1,a_2)=\{\forall p_x \in R^x\quad | \quad p_x=\lambda_1 a_1 + \lambda_2 a_2\quad | \quad \lambda_1,\lambda_2 \in R\}\\L(u_1,u_2)=\{\forall q_x \in R^x\quad | \quad q_x=\xi_1 u_1 + \xi_2 u_2 \quad | \quad \xi_1,\xi_2 \in R\}\vspace{3mm}\\
+p_x=q_x \quad \land \quad a_1=u_1 \quad \land \quad a_2=l_{21}u1+u_2\vspace{3mm}\\
+\implies \lambda_1a_1+\lambda_2a_2=\xi_1u_1+\xi_2u_2\\
+\implies \lambda_1u_1+\lambda_2(l_{21}u_1+u_2)=\xi_1u_1+\xi_2u_2\\
+\implies u_1(\lambda_1+\lambda_2l_{21})+u_2(\lambda_2)=u_1(\xi_1)+u_2(\xi_2)\vspace{3mm}\\
+\implies \xi_1=\lambda_1+l_{21}\lambda_2 ,\quad \xi_2 = \lambda_2 \implies L(a_1,a_2)=L(u_1,u_2)$
+\subsection*{c)}
+$a_3=l_{31}u_1+l_{32}u_2+u_3 \implies  $vektori $a_3, u_1,u_2$ i $u_3$ su linearno zavisni. \\
+$ L(a_1,a_2,a_3)=\{\forall p_x \in R^x\quad | \quad  p_x=\lambda_1 a_1 + \lambda_2 a_2 + \lambda_3 a_3 \quad | \quad  \lambda_1,\lambda_2,\lambda_3 \in R\}\\
+L(u_1,u_2,u_3)=\{\forall q_x \in R^x\quad | \quad  q_x=\xi_1 u_1 + \xi_2 u_2 + \xi_3 u_3 \quad | \quad  \xi_1,\xi_2,\xi_3 \in R\}\vspace{3mm}\\
+p_x=q_x \quad \land \quad a_1=u_1 \quad \land \quad a_2=l_{21}u_1+u_2 \quad \land \quad a_3=l_{31}u_1+l_{32}u_2 + u_3\vspace{3mm}\\
+\implies \lambda_1 a_1 + \lambda_2 a_2 + \lambda_3 a_3 \ = \xi_1 u_1 + \xi_2 u_2 + \xi_3 u_3 \\
+\implies \lambda_1 (u_1) + \lambda_2 (l_{21}u_1+u_2) + \lambda_3 (l_{31}u_1+l_{32}u_2 + u_3)=\xi_1 u_1 + \xi_2 u_2 + \xi_3 u_3\\
+\implies u_1(\lambda_1+\lambda_2 l_{21} + \lambda_3 l_{31}) + u_2 (\lambda_2 +\lambda_3 l_{32})+u_3(\lambda_3)=(\xi_1) u_1 + (\xi_2) u_2 + (\xi_3) u_3\vspace{3mm}\\
+\implies \xi_1= \lambda_1+\lambda_2 l_{21} + \lambda_3 l_{31},\quad \xi_2=\lambda_2 +\lambda_3 l_{32},\quad \xi_3=\lambda_3\\
+\implies L(a_1,a_2,a_3)=L(u_1,u_2,u_3)$\\
+Za kolone matrica $A$ i $L$: pretpostavljamo da su vektori: $a_1,a_2,a_3,l_1,l_2,l_3 \in \mathcal{M}_{n \times 1}$:\\
+\begin{align*}
+A=
+\begin{bmatrix}
+a_1 & \vline & a_2 & \vline & a_3
+\end{bmatrix}
+=
+\begin{bmatrix}
+l_1 & \vline & l_2 & \vline & l_3
+\end{bmatrix}
+\begin{bmatrix}
+u_{11} & \vline & u_{12} & \vline & u_{13}\\
+0 & \vline & u_{22} & \vline & u_{23}\\
+0 & \vline & 0 & \vline & u_{33}
+\end{bmatrix}
+\end{align*}\\
+Dobijamo sistem analogan sistemu \eqref{eq4.1}:
+\begin{align*}
+\tag{4.2}\label{eq4.2}
+\\
+\iff \begin{cases}
+\boldsymbol{a)} \quad a_1= \begin{bmatrix}
+l_1 & \vline & l_2 & \vline & l_3
+\end{bmatrix}\begin{bmatrix}u_{11} \\ 0 \\ 0 \end{bmatrix}
+=u_{11}l_1 \implies a_1=u_{11}l_1\\
+\boldsymbol{b)} \quad a_2= \begin{bmatrix}
+l_1 & \vline & l_2 & \vline & l_3
+\end{bmatrix}\begin{bmatrix}u_{12} \\ u_{22} \\ 0 \end{bmatrix}
+=u_{12}l_1 + u_{22}l_2 \implies a_2=u_{12}l_1+u_{22}l_2\\
+\boldsymbol{c)} \quad a_3= \begin{bmatrix}
+l_1 & \vline & l_2 & \vline & l_3
+\end{bmatrix}\begin{bmatrix}u_{13} \\ u_{23} \\ u_{33} \end{bmatrix}
+=u_{13}l_1 + u_{23}l_2 + u_{33}l_3\implies a_3=u_{13}l_1+u_{23}l_2+u_{33}l_3\\
+\end{cases}
+\end{align*}
+\subsection*{a)}
+$a_1=u_{11}l_1 \implies  $vektori $a_1$ i $l_1$ su linearno zavisni. \\$ L(a_1)=\{\forall s_x \in R^x\quad | \quad s_x=\epsilon_1 a_1 \quad | \quad \epsilon_1 \in R\}\\L(l_1)=\{\forall t_x \in R^x\quad | \quad t_x=\eta_1 l_1 \quad | \quad \eta_1 \in R\}\vspace{3mm}\\
+\implies \epsilon_1=u_{11}\eta_1 \implies L(a_1)=L(l_1) \iff u_{11} \ne 0$
+\subsection*{b)}
+$a_2=u_{12}l_1+u_{22}l_2 \implies  $vektori $a_2 ,l_1$ i $l_2$ su linearno zavisni. \\$ L(a_1,a_2)=\{\forall s_x \in R^x\quad | \quad s_x=\epsilon_1 a_1 + \epsilon_2 a_2\quad | \quad \epsilon_1,\epsilon_2 \in R\}\\L(l_1,l_2)=\{\forall t_x \in R^x\quad | \quad t_x=\eta_1 l_1 + \eta_2 l_2 \quad | \quad \eta_1,\eta_2 \in R\}\vspace{3mm}\\
+s_x=t_x \quad \land \quad a_1=u_{11}l_1 \quad \land \quad a_2=u_{12}l_1+u_{22}l_2\vspace{3mm}\\
+\implies \epsilon_1a_1+\epsilon_2a_2=\eta_1u_1+\eta_2u_2\\
+\implies \epsilon_1u_{11}l_1+\epsilon_2(u_{12}l_1+u_{22}l_2)=\eta_1l_1+\eta_2l_2\\
+\implies l_1(\epsilon_1u_{11}+\epsilon_2u_{12})+l_2(\epsilon_2u_{22})=l_1(\eta_1)+l_2(\eta_2)\vspace{3mm}\\
+\implies \eta_1=\epsilon_1u_{11}+\epsilon_2u_{12} ,\quad \eta_2 = \epsilon_2u_{22} \implies L(a_1,a_2)=L(l_1,l_2) \iff u_{11},u_{22} \ne 0$
+\subsection*{c)}
+$a_3=u_{13}l_1+u_{23}l_2+u_{33}l_3 \implies  $vektori $a_3, l_1,l_2$ i $l_3$ su linearno zavisni. \\
+$ L(a_1,a_2,a_3)=\{\forall s_x \in R^x\quad | \quad  s_x=\epsilon_1 a_1 + \epsilon_2 a_2 + \epsilon_3 a_3 \quad | \quad  \epsilon_1,\epsilon_2,\epsilon_3 \in R\}\\
+L(l_1,l_2,l_3)=\{\forall t_x \in R^x\quad | \quad  t_x=\eta_1 l_1 + \eta_2 l_2 + \eta_3 l_3 \quad | \quad  \eta_1,\eta_2,\eta_3 \in R\}\vspace{3mm}\\
+s_x=t_x \quad \land \quad a_1=u_{11}l_1 \quad \land \quad a_2=u_{12}l_1+u_{22}l_2 \quad \land \quad a_3=u_{31}l_1+u_{23}l_2 + u_{33}l_3\vspace{3mm}\\
+\implies \epsilon_1 a_1 + \epsilon_2 a_2 + \epsilon_3 a_3 \ = \eta_1 l_1 + \eta_2 l_2 + \eta_3 l_3 \\
+\implies \epsilon_1 (u_{11}l_1) + \epsilon_2 (u_{12}l_1+u_{22}l_2) + \epsilon_3 (u_{13}l_1+u_{23}l_2 + u_{33}l_3)=\eta_1 l_1 + \eta_2 l_1 + \eta_3 l_1\\
+\implies l_1(\epsilon_1u_{11}+\epsilon_2 u_{12} + \epsilon_3 u_{13}) + l_2 (\epsilon_2u_{22} +\epsilon_3 u_{23})+l_3(\epsilon_3u_{33})=(\eta_1) l_1 + (\eta_2) l_2 + (\eta_3) l_3\vspace{3mm}\\
+\implies \eta_1= \epsilon_1u_{11}+\epsilon_2 u_{12} + \epsilon_3 u_{13},\quad \eta_2=\epsilon_2u_{22} +\epsilon_3 u_{23},\quad \eta_3=\epsilon_3u_{33}\\
+\implies L(a_1,a_2,a_3)=L(l_1,l_2,l_3) \iff u_{11},u_{22},u_{33} \ne 0$\vspace{5mm}\\
+\subparagraph{5.}
+{Neka je $A$ regularna matrica i $u, v$ vektori takvi da važi $1 + v^T A^{-1} u \ne 0$. Dokazati formulu \href{https://en.wikipedia.org/wiki/Sherman\%E2\%80\%93Morrison_formula}{Šermana i Morisona}:
+\begin{align*}\tag{5}\label{z5}
+(A + u v^T)^{-1} = A^{-1} - {\frac{\displaystyle{A^{-1}u v^TA^{-1}}}{\displaystyle{1 + v^TA^{-1}u}}}.
+\end{align*}
+}
+\subparagraph*{Rešenje:}
+Inverzna matrica je definisana kao:\vspace{2mm}\\
+$
+MM^{-1}=M^{-1}M=I 
+$
+\subsection*{1°}\label{1°}
+$I=(A+uv^T)(A+uv^T)^{-1}=(A+uv^T)(A^{-1} - {\frac{\displaystyle{A^{-1}u v^TA^{-1}}}{\displaystyle{1 + v^TA^{-1}u}}})=\vspace{2mm}\\
+=AA^{-1} +uv^TA^{-1}-\frac{\displaystyle{AA^{-1}u v^TA^{-1}+uv^TA^{-1}u v^TA^{-1}}}{\displaystyle{1 + v^TA^{-1}u}}=I+uv^TA^{-1}-\frac{\displaystyle{Iu v^TA^{-1}+u(v^TA^{-1}u) v^TA^{-1}}}{\displaystyle{1 + v^TA^{-1}u}}\vspace{2mm}\\
+$S obzirom da je $v^TA^{-1}u \in R \ne -1 \vspace{2mm}\\\implies I+uv^TA^{-1}-uv^TA^{-1} \frac{\displaystyle{1 + v^TA^{-1}u}}{\displaystyle{1 + v^TA^{-1}u}}=I+uv^TA^{-1}-uv^TA^{-1}*1=I\vspace{5mm}\\
+$Ostaje još da dokažemo i: $(A+uv^T)^{-1}(A+uv^T)=I$ kako bi {polazna jednačina} \eqref{z5} važila.\vspace{5mm}\\
+\subsection*{2°}\label{2°}
+$
+I=(A+uv^T)^{-1}(A+uv^T)=(A^{-1} - \frac{\displaystyle{A^{-1}u v^TA^{-1}}}{\displaystyle{1 + v^TA^{-1}u}})(A+uv^T)=\vspace{2mm}\\
+=A^{-1}A+A^{-1}uv^T-\frac{{\displaystyle{A^{-1}u v^TA^{-1}A+A^{-1}u v^TA^{-1}uv^T}}}{{\displaystyle{1 + v^TA^{-1}u}}}=I+A^{-1}uv^T-\frac{{\displaystyle{A^{-1}u v^TI+A^{-1}u (v^TA^{-1}u)v^T}}}{{\displaystyle{1 + v^TA^{-1}u}}}=\vspace{2mm}\\
+= I+A^{-1}uv^T-A^{-1}uv^T \frac{\displaystyle{1+v^TA^{-1}u}}{\displaystyle{1+v^TA^{-1}u}}=I+A^{-1}uv^T-A^{-1}uv^T*1=I\vspace{5mm}\\
+$Na osnovu (\nameref{1°}) i (\nameref{2°}) $\implies (A+uv^T)^{-1}=(A^{-1} - {\frac{\displaystyle{A^{-1}u v^TA^{-1}}}{\displaystyle{1 + v^TA^{-1}u}}})$.\\
+\end{document}

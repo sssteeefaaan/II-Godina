@@ -1,0 +1,32 @@
+INSERT INTO UCESNIK values ('RS001','Tina','Mladjan','Stanojevic','Jugoistocna Srbija');
+INSERT INTO UCESNIK values ('RS002','Marta','Nenad','Dinic','Jugoistocna Srbija');
+INSERT INTO UCESNIK values ('RS003','Stefan','Valentina','Aleksic','Jugoistocna Srbija');
+INSERT INTO UCESNIK values ('RS004','Djordje','Goran','Jovanovic','Sumadija');
+INSERT INTO UCESNIK values ('RS005','Nikola','Niksi','Stankovic','Jugoistocna Srbija');
+INSERT INTO UCESNIK values ('RS006','Miljana','Miksi','Bogdanovic','Jugoistocna Srbija');
+INSERT INTO UCESNIK values ('RS007','Vuk','Bibi','Bibic','Jugoistocna Srbija');
+INSERT INTO UCESNIK values ('RS008','Petra','Ivana','Djordjevic','Jugoistocna Srbija');
+INSERT INTO UCESNIK values ('RS009','Pavle','Rastko','Bozinovic','Sumadija');
+INSERT INTO UCESNIK values ('RS010','Filip','Mladjan','Trajkovic','Jugoistocna Srbija');
+INSERT INTO UCESNIK values ('RS011','Jovan','Mihajlo','Brzovic','Vojvodina');
+
+INSERT INTO UCESNIK values ('SP001','Lucrecia','Hendrich','Montesinos','Spain');
+INSERT INTO UCESNIK values ('SP002','Ursula','Tokio','Corbero','Spain');
+INSERT INTO UCESNIK values ('SP003','Alvaro','El Professor','Morte','Spain');
+INSERT INTO UCESNIK values ('SP004','Alba','Nairobi','Flores','Spain');
+INSERT INTO UCESNIK values ('SP005','Raquel','Lisbon','Murillo','Spain');
+INSERT INTO UCESNIK values ('SP006','Monica','Stockholm','Gaztambide','Spain');
+
+INSERT INTO UCESNIK values ('USA001','Mikaela','Nadia','Shiffrin','Miami');
+INSERT INTO UCESNIK values ('USA002','Alex','Jerry','Russo','New York');
+INSERT INTO UCESNIK values ('USA003','Eric','Theodore','Cartman','Texas');
+
+INSERT INTO UCESNIK values ('IT001','Ander','Jorje','Munoz','Italia');
+
+INSERT INTO UCESNIK values ('MS001',' Ken','John','Shamrock','Malezija');
+
+INSERT INTO UCESNIK values ('NK001','Kim','Jong','Un','North Korea');
+
+INSERT INTO UCESNIK values ('NW001','Aleksander','Aamodt','Kilde','Norveska');
+
+INSERT INTO UCESNIK values ('RC001','Janica','Goran','Kostelic','Severna Hrvatska');

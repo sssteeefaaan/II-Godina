@@ -1,0 +1,5 @@
+Za sledecu nedelju pogledajte prezentacije 20, 21 i 22.
+
+U njima su tekstovi dva zadatka koja cemo da radimo na vezbama (Izuzecivektor.zip i IzuzeciRacionalanBroj.zip).
+
+Sem njih imamo i osnovni primer za objasnjenje funkcionisanja izuzetaka (Izuzeci.zip)

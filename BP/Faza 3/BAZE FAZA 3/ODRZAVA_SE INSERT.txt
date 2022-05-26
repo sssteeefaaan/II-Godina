@@ -1,0 +1,5 @@
+INSERT INTO Odrzava_se values('Chamonix','74400, France','Alpsko skijanje','08:00h');
+INSERT INTO Odrzava_se values('Bazen Banjica','19350 Knjazevac','Plivanje 100m','15:15h');
+INSERT INTO Odrzava_se values('Empire Stadium','Wembley, London','Dresurno jahanje','18:00h');
+INSERT INTO Odrzava_se values('Empire Stadium','Wembley, London','Mixed Martial Arts','16:45h');
+INSERT INTO Odrzava_se values('Olimpico del Nuoto','Foro Italico, Rome, Italy','Diving 10m','12:00h');

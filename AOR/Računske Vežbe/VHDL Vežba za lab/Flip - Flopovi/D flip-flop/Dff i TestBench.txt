@@ -1,0 +1,42 @@
+entity dff is
+    port (
+      clock : in bit;
+      d:in bit;
+      reset: in bit;
+      set: in bit;
+      q:out bit
+    ) ;
+end entity; -- dff
+  
+architecture asyncRE of dff is
+begin
+	process (reset,clock) is
+	begin
+       	if (reset='1')
+        	then q<='0';
+          elsif (clock'event and clock='1')
+        	then q<=d;
+        end if;
+      end process;
+end architecture; -- asyncRE
+
+entity testBench is
+end entity testBench; -- testBench
+
+architecture testBench of testBench is
+	signal sd,ares,aset,sq : bit;
+        signal clk : bit :='0';
+        constant Tclk: time := 500 ps;
+    begin
+        uut: entity dff(syncRE)
+        port map(clock=>clk,d=>sd,reset=>ares,set=>aset,q=>sq);
+    
+        clk<=not clk after 2*Tclk;
+        process is
+            begin
+                sd<='0','1' after 300 ps,'0' after 600 ps,'1' after 1100 ps,'0' after 1450 ps,'1' after 2 ns;
+                ares<='1','0' after Tclk;
+                aset<='0','1' after 4*Tclk;
+                wait for 5*Tclk;
+        end process;
+    end architecture; -- testBench

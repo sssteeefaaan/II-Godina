@@ -1,0 +1,8 @@
+INSERT INTO Broj_telefona values ('Chamonix','74400, France','+1242142354');
+INSERT INTO Broj_telefona values ('Chamonix','74400, France','+1487248724252');
+INSERT INTO Broj_telefona values ('Bazen Banjica','19350 Knjazevac','+124214525');
+INSERT INTO Broj_telefona values ('Bazen Banjica','19350 Knjazevac','+124978267');
+INSERT INTO Broj_telefona values ('Empire Stadium','Wembley, London','+4233478522');
+INSERT INTO Broj_telefona values ('Empire Stadium','Wembley, London','+2983628375');
+INSERT INTO Broj_telefona values ('Olimpico del Nuoto','Foro Italico, Rome, Italy','+2472852523');
+INSERT INTO Broj_telefona values ('Olimpico del Nuoto','Foro Italico, Rome, Italy','+3984768934');

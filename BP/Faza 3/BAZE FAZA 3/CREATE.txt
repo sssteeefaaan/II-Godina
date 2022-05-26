@@ -1,0 +1,101 @@
+CREATE TABLE TURNIR(
+Naziv         varchar(20) default ('Unknown') not null,
+Datum_odrzavanja    date   default ('01/MAY/2020')  not null,
+
+CONSTRAINT Turnir_PK PRIMARY KEY (Datum_odrzavanja, Naziv)
+);
+
+CREATE TABLE DISCIPLINA(
+Naziv_discipline         varchar(20) default ('Unknown') not null,
+Vreme_pocetka         varchar(8) default ('Unknown') not null,
+Vreme_kraja         varchar(8) default ('Unknown') not null,
+Ime_sudije         varchar(15) default ('Unknown') not null,
+Srednje_ime_sudije         varchar(15) default ('Unknown'),
+Prezime_sudije         varchar(15) default ('Unknown') not null,
+
+CONSTRAINT Disciplina_PK PRIMARY KEY (Naziv_discipline, Vreme_pocetka)
+);
+
+CREATE TABLE LOKACIJA(
+Naziv         varchar(20)  default ('Unknown') not null,
+Adresa         varchar(30) default ('Unknown') not null,
+Vrsta_terena         varchar(15) default ('Unknown') not null,
+Kapacitet        number(6) default(0) not null,
+
+CONSTRAINT Lokacija_PK PRIMARY KEY (Naziv, Adresa),
+CONSTRAINT Kapacitet_CHECK CHECK (Kapacitet between -1 and 999999)
+);
+
+CREATE TABLE UCESNIK(
+Sifra         varchar(9)  default ('Unknown') not null CONSTRAINT UCESNIK_PK PRIMARY KEY,
+Ime         varchar(15) default ('Unknown') not null,
+Srednje_ime         varchar(15) default ('Unknown'),
+Prezime         varchar(15) default ('Unknown') not null,
+Regija         varchar(20) default ('Unknown') not null
+);
+
+CREATE TABLE SPONZOR(
+Prioritet        number(3) default (1) not null CONSTRAINT SPONZOR_PK PRIMARY KEY,
+Naziv         varchar(20) default ('Unknown') not null,
+Slogan         varchar(200) default ('Unknown') not null,
+
+CONSTRAINT Prioritet_CHECK CHECK (Prioritet between 0 and 999)
+);
+
+CREATE TABLE Sponzorise(
+Naziv         varchar(20),
+Datum_odrzavanja         date,
+Prioritet         number(3) REFERENCES SPONZOR(Prioritet),
+
+CONSTRAINT Sponzorise_PK PRIMARY KEY (Datum_odrzavanja , Naziv , Prioritet),
+CONSTRAINT Sponzorise_FK FOREIGN KEY(Datum_odrzavanja,Naziv) REFERENCES TURNIR(Datum_odrzavanja,Naziv)
+);
+
+CREATE TABLE Organizuje(
+Naziv         varchar(20),
+Datum_odrzavanja         date,
+Naziv_discipline         varchar(20),
+Vreme_pocetka         varchar(15),
+
+CONSTRAINT Organizuje_PK PRIMARY KEY(Datum_odrzavanja , Naziv , Naziv_discipline , Vreme_pocetka),
+CONSTRAINT Organizuje_Turnir_FK FOREIGN KEY(Datum_odrzavanja,Naziv) REFERENCES TURNIR(Datum_odrzavanja,Naziv),
+CONSTRAINT Organizuje_Disciplina_FK FOREIGN KEY(Naziv_discipline,Vreme_pocetka) REFERENCES DISCIPLINA(Naziv_discipline,Vreme_pocetka)
+);
+
+CREATE TABLE Ucestvuje(
+Sifra        varchar(9) REFERENCES UCESNIK(Sifra),
+Naziv_discipline         varchar(20),
+Vreme_pocetka         varchar(15),
+Redni_broj      number(4) default (1) not null,
+
+CONSTRAINT Ucestvuje_PK PRIMARY KEY (Sifra, Naziv_discipline, Vreme_pocetka),
+CONSTRAINT Ucestvuje_FK FOREIGN KEY (Naziv_discipline, Vreme_pocetka) REFERENCES DISCIPLINA(Naziv_discipline, Vreme_pocetka),
+CONSTRAINT Redni_broj_CHECK CHECK (Redni_broj between 0 and 999)
+);
+
+CREATE TABLE Odrzava_se(
+Naziv         varchar(20),
+Adresa         varchar(30),
+Naziv_discipline         varchar(20),
+Vreme_pocetka         varchar(15),
+
+CONSTRAINT Odrzava_se_PK PRIMARY KEY(Naziv, Adresa, Naziv_discipline , Vreme_pocetka),
+CONSTRAINT Odrzava_se_Lokacija_FK FOREIGN KEY(Naziv, Adresa) REFERENCES LOKACIJA(Naziv,Adresa),
+CONSTRAINT Odrazava_se_Disciplina_FK FOREIGN KEY(Naziv_discipline,Vreme_pocetka) REFERENCES DISCIPLINA(Naziv_discipline,Vreme_pocetka)
+);
+
+CREATE TABLE Kontakt_telefon(
+Sifra         varchar(9) REFERENCES UCESNIK(Sifra),
+Kontakt_telefon         varchar(15) default ('Unknown') not null,
+
+CONSTRAINT Kontant_telefon PRIMARY KEY(Kontakt_telefon , Sifra)
+);
+
+CREATE TABLE Broj_telefona(
+Naziv         varchar(20),
+Adresa         varchar(30),
+Broj_telefona         varchar(15) default ('Unknown') not null,
+
+CONSTRAINT Broj_telefona_PK PRIMARY KEY(Broj_telefona , Adresa , Naziv),
+CONSTRAINT Broj_telefona_FK FOREIGN KEY (Naziv, Adresa) references LOKACIJA(Naziv, Adresa)
+);
