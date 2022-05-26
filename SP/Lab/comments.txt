@@ -1,0 +1,67 @@
+﻿1) 10
+2) 9 - potrebno je premestiti čvor prelančavanjem, ne brisanjem pa insertovanjem
+3) 10
+
+
+
+--------------------------------------------------
+
+Student: Stefan Aleksic
+Broj indeksa: 16995
+
+--------------------------------------------------
+
+Bodovi osvojeni za delove 3. lab vezbe
+
+Stablo i Gomila (max 4 boda): 	4
+1. zadatak (max 8 bodova): 	8
+2. zadatak (max 8 bodova): 	8
+3. lab vezba (max 20 bodova): 	20
+
+Komentar za 1. zadatak:
+++ okrece redosled po nivoima
+++ pomeranje za stepenovanje
+
+Komentar za 2. zadatak:
+ne brise koren vec preskace
+preorder sa roditeljem
+
+--------------------------------------------------
+
+Bodovi osvojeni za delove 4. lab vezbe
+
+Graf (max 4 boda): 		4
+Zadatak pod a (max 8 bodova): 	8
+Zadatak pod b (max 8 bodova): 	8
+4. lab vezba (max 20 bodova): 	20
+
+Komentar za deo zadatka pod a:
+++ koristi status za ubrzanje
+
+Komentar za deo zadatka pod b:
+rekurzivno trazenje po dubini
+komplikuje jer prekida pri obilasku grana
+
+--------------------------------------------------
+
+Opste napomene vezane za 3. i 4. laboratorijsku vezbu za sve studente
+
+Treca lab vezba ukupno nosi 20 bodova i je bodovana iz 3 dela:
+1. deo je stablo i gomila (max 4 boda): bodovi za realizaciju klasa uredjenog binarnog stabla i gomile (sa osnovnim metodama) navedenih u 1. i 2. zadatku
+2. deo je 1. zadatak (max 8 bodova): bodovi za realizaciju konkretnog metoda zahtevanog u 1. zadatku
+3. deo je 2. zadatak (max 8 bodova): bodovi za realizaciju konkretnog metoda zahtevanog u 2. zadatku
+Komentar za 1. zadatak se odnosi na realizaciju zadate klase i konkretnog metoda u 1. zadatku
+Komentar za 2. zadatak se odnosi na realizaciju zadate klase i konkretnog metoda u 2. zadatku
+
+Cetvrta lab vezba ukupno nosi 20 bodova i je bodovana iz 3 dela:
+1. deo je graf (max 4 boda): bodovi za realizaciju klase grafa (sa osnovnim metodama)
+2. deo je zadatak a (max 8 bodova): bodovi za realizaciju konkretnog metoda zahtevanog u delu zadatka pod a
+3. deo je zadatak b (max 8 bodova): bodovi za realizaciju konkretnog metoda zahtevanog u delu zadatka pod b
+Komentar za deo zadatka pod a se odnosi na realizaciju klase grafa i konkretnog metoda u delu zadatka pod a
+Komentar za deo zadatka pod b se odnosi na realizaciju konkretnog metoda u delu zadatka pod b
+
+Komentari mogu imati 3 znacenja u zavisnosti od prefiksa:
+1. nema prefiksa: neutralan komentar o nacinu realizacije nekog dela zadatka
+2. prefiks ++: pozitivan komentar o nacinu realizacije nekog dela zadatka i predstavlja pohvalu (obicno ne donosi dodatne poene, osim u pojedinim slucajevima)
+3. prefiks --: negativan komentar o nacinu realizacije nekog dela zadatka (obicno donosi negativne poene, osim u pojedinim slucajevima)
+
